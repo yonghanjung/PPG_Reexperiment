@@ -32,11 +32,13 @@ class DrMPPGAnalysis:
         Object_BandPassFilter = BandPassFilter(Array_Signal=self.Array_PPG, Flt_SamplingRate=self.FltSamplingRate, Flt_LowCut=self.Flt_LowCut, Flt_HighCut=self.Flt_HighCut, Int_BandPassOrder=self.Int_BandPassOrder)
         return Object_BandPassFilter.butter_bandpass_filter()
 
+    
+
 
 
 if __name__ == "__main__":
-    Str_DataName = "PPG_KW_long"
-    Int_DataNum = 1
+    Str_DataName = "PPG_Walk"
+    Int_DataNum = 2
     Object_DrMPPG = DrMPPGAnalysis(Str_DataName=Str_DataName, Int_DataNum=Int_DataNum)
     Array_RawPPG = Object_DrMPPG.Array_PPG
     Array_FilteredPPG = Object_DrMPPG.BandPassFilter()
