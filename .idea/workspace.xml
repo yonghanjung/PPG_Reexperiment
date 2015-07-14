@@ -26,22 +26,10 @@
       <file leaf-file-name="Execution.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Execution/Execution.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.16164383" vertical-offset="1543" max-vertical-offset="2322">
-              <caret line="89" column="19" selection-start-line="89" selection-start-column="19" selection-end-line="89" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.5890411" vertical-offset="3660" max-vertical-offset="4025">
+              <caret line="155" column="18" selection-start-line="155" selection-start-column="18" selection-end-line="155" selection-end-column="18" />
               <folding>
                 <element signature="e#116#134#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FourierTransformation.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Module/FourierTransformation.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="942" max-vertical-offset="2700">
-              <caret line="62" column="8" selection-start-line="62" selection-start-column="8" selection-end-line="62" selection-end-column="47" />
-              <folding>
-                <element signature="e#120#138#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -90,6 +78,8 @@
         <option value="$PROJECT_DIR$/Module/AdaptiveThreshold.py" />
         <option value="$PROJECT_DIR$/HoldInAnyCase/FourierPractice.py" />
         <option value="$PROJECT_DIR$/Module/FourierTransformation.py" />
+        <option value="$PROJECT_DIR$/Module/LMSFilter.py" />
+        <option value="$PROJECT_DIR$/Module/HansLMSFilter.py" />
         <option value="$PROJECT_DIR$/Execution/Execution.py" />
       </list>
     </option>
@@ -195,6 +185,11 @@
     <property name="recentsLimit" value="5" />
     <property name="FullScreen" value="false" />
   </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings />
+    </option>
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Module" />
@@ -221,24 +216,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="PPG_Reexperiment" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Execution/Execution.py" />
-      <option name="PARAMETERS" value="" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="AdaptiveThreshold" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Module" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="PPG_Reexperiment" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Module/AdaptiveThreshold.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
@@ -275,6 +252,42 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="PPG_Reexperiment" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/HoldInAnyCase/FourierPractice.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="LMSFilter" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Module" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="PPG_Reexperiment" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Module/LMSFilter.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="HansLMSFilter" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Module" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="PPG_Reexperiment" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Module/HansLMSFilter.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
@@ -401,18 +414,20 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
-    <list size="4">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.Execution" />
-      <item index="1" class="java.lang.String" itemvalue="Python.AdaptiveThreshold" />
-      <item index="2" class="java.lang.String" itemvalue="Python.FourierTransformation" />
-      <item index="3" class="java.lang.String" itemvalue="Python.FourierPractice" />
+      <item index="1" class="java.lang.String" itemvalue="Python.FourierTransformation" />
+      <item index="2" class="java.lang.String" itemvalue="Python.FourierPractice" />
+      <item index="3" class="java.lang.String" itemvalue="Python.LMSFilter" />
+      <item index="4" class="java.lang.String" itemvalue="Python.HansLMSFilter" />
     </list>
     <recent_temporary>
-      <list size="4">
+      <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.Execution" />
-        <item index="1" class="java.lang.String" itemvalue="Python.FourierTransformation" />
-        <item index="2" class="java.lang.String" itemvalue="Python.FourierPractice" />
-        <item index="3" class="java.lang.String" itemvalue="Python.AdaptiveThreshold" />
+        <item index="1" class="java.lang.String" itemvalue="Python.LMSFilter" />
+        <item index="2" class="java.lang.String" itemvalue="Python.HansLMSFilter" />
+        <item index="3" class="java.lang.String" itemvalue="Python.FourierTransformation" />
+        <item index="4" class="java.lang.String" itemvalue="Python.FourierPractice" />
       </list>
     </recent_temporary>
   </component>
@@ -478,13 +493,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Module/LMSFilter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.21067415" vertical-offset="75" max-vertical-offset="2205">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Module/Wavelet.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5265">
@@ -536,6 +544,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Module/HansLMSFilter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21052632" vertical-offset="483" max-vertical-offset="1230">
+          <caret line="37" column="32" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="32" />
+          <folding>
+            <element signature="e#120#138#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Module/LMSFilter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.2386364" vertical-offset="1274" max-vertical-offset="2250">
+          <caret line="114" column="0" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Module/FourierTransformation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.4630136" vertical-offset="582" max-vertical-offset="2700">
+          <caret line="62" column="8" selection-start-line="62" selection-start-column="8" selection-end-line="62" selection-end-column="47" />
+          <folding>
+            <element signature="e#120#138#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Module/AdaptiveThreshold.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1020" max-vertical-offset="1575">
@@ -556,20 +592,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Module/FourierTransformation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="942" max-vertical-offset="2700">
-          <caret line="62" column="8" selection-start-line="62" selection-start-column="8" selection-end-line="62" selection-end-column="47" />
-          <folding>
-            <element signature="e#120#138#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Execution/Execution.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16164383" vertical-offset="1543" max-vertical-offset="2322">
-          <caret line="89" column="19" selection-start-line="89" selection-start-column="19" selection-end-line="89" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.5890411" vertical-offset="3660" max-vertical-offset="4025">
+          <caret line="155" column="18" selection-start-line="155" selection-start-column="18" selection-end-line="155" selection-end-column="18" />
           <folding>
             <element signature="e#116#134#0" expanded="true" />
           </folding>

@@ -14,7 +14,6 @@ Comment
 
 """ lms.py: a simple python class for Least mean squares adaptive filter """
 
-from __future__ import division
 import numpy as np
 
 __version__ = "2013-08-29 aug denis"
@@ -67,6 +66,7 @@ class LMS:
         self.Wt = np.squeeze( getattr( Wt, "A", Wt ))  # matrix -> array
         self.damp = damp
 
+
     def est( self, X, y, verbose=0 ):
         X = np.squeeze( getattr( X, "A", X ))
         yest = self.Wt.dot(X)
@@ -90,8 +90,8 @@ if __name__ == "__main__":
     plot = 0
     seed = 0
 
-    exec( "\n".join( sys.argv[1:] ))  # run this.py n= ...  from sh or ipython
-    np.set_printoptions( 2, threshold=100, edgeitems=10, linewidth=80, suppress=True )
+    # exec( "\n".join( sys.argv[1:] ))  # run this.py n= ...  from sh or ipython
+    # np.set_printoptions( 2, threshold=100, edgeitems=10, linewidth=80, suppress=True )
     np.random.seed(seed)
 
     def chirp( n, f0=2, f1=40, t1=1 ):  # <-- your test function here
@@ -100,6 +100,7 @@ if __name__ == "__main__":
         return np.sin( 2*np.pi * f0 * (f1/f0)**t )
 
     Xlong = chirp( nx, f1=f1 )
+    print Xlong.shape
     # Xlong = np.cos( 2*np.pi * freq * np.arange(nx) )
     if noise:
         Xlong += np.random.normal( scale=noise, size=nx )  # laplace ...
@@ -118,6 +119,7 @@ if __name__ == "__main__":
         X = Xlong[t:t+filterlen]
         y = Xlong[t+filterlen]  # predict
         yest = lms.est( X, y, verbose = (t % 10 == 0) )
+        print yest
         ys += [y]
         yests += [yest]
 
