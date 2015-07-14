@@ -23,13 +23,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Execution.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Execution.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Execution/Execution.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7123288" vertical-offset="505" max-vertical-offset="1365">
+            <state vertical-scroll-proportion="0.0" vertical-offset="560" max-vertical-offset="1547">
               <caret line="51" column="12" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="12" />
               <folding>
                 <element signature="e#116#134#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FourierTransformation.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Module/FourierTransformation.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="1.8904109" vertical-offset="0" max-vertical-offset="1410">
+              <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+              <folding>
+                <element signature="e#120#138#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -70,12 +82,12 @@
         <option value="$PROJECT_DIR$/Module/AdaptiveFilter.py" />
         <option value="$PROJECT_DIR$/Execution/DataCall.py" />
         <option value="$PROJECT_DIR$/Module/bandpass.py" />
-        <option value="$PROJECT_DIR$/Module/FourierTransformation.py" />
         <option value="$PROJECT_DIR$/Module/data_call.py" />
         <option value="$PROJECT_DIR$/Execution/peak_detect_batch.py" />
         <option value="$PROJECT_DIR$/HoldInAnyCase/peak_detect.py" />
         <option value="$PROJECT_DIR$/Module/AdaptiveThreshold.py" />
         <option value="$PROJECT_DIR$/Execution/Execution.py" />
+        <option value="$PROJECT_DIR$/Module/FourierTransformation.py" />
       </list>
     </option>
   </component>
@@ -128,6 +140,10 @@
               <option name="myItemId" value="PPG_Reexperiment" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Module" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -157,6 +173,16 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PPG_Reexperiment" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PPG_Reexperiment" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -178,7 +204,7 @@
       <recent name="$PROJECT_DIR$/Data" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Execution">
+  <component name="RunManager" selected="Python.FourierTransformation">
     <configuration default="false" name="Execution" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -210,6 +236,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="PPG_Reexperiment" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Module/AdaptiveThreshold.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="FourierTransformation" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Module" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="PPG_Reexperiment" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Module/FourierTransformation.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
@@ -336,14 +380,16 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
-    <list size="2">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Python.Execution" />
       <item index="1" class="java.lang.String" itemvalue="Python.AdaptiveThreshold" />
+      <item index="2" class="java.lang.String" itemvalue="Python.FourierTransformation" />
     </list>
     <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Python.Execution" />
-        <item index="1" class="java.lang.String" itemvalue="Python.AdaptiveThreshold" />
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="Python.FourierTransformation" />
+        <item index="1" class="java.lang.String" itemvalue="Python.Execution" />
+        <item index="2" class="java.lang.String" itemvalue="Python.AdaptiveThreshold" />
       </list>
     </recent_temporary>
   </component>
@@ -402,13 +448,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Module/FourierTransformation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.59366757" vertical-offset="0" max-vertical-offset="405">
-          <caret line="15" column="27" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Data/PPG_Walk1.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="343">
@@ -486,10 +525,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Execution/Execution.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7123288" vertical-offset="505" max-vertical-offset="1365">
+        <state vertical-scroll-proportion="0.0" vertical-offset="560" max-vertical-offset="1547">
           <caret line="51" column="12" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="12" />
           <folding>
             <element signature="e#116#134#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Module/FourierTransformation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.8904109" vertical-offset="0" max-vertical-offset="1410">
+          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding>
+            <element signature="e#120#138#0" expanded="true" />
           </folding>
         </state>
       </provider>
