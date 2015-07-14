@@ -94,7 +94,6 @@ class AdaptiveThreshold:
                     Bool_ThresholdUpdateMode = True
                     Dict_MaxLoc_MaxAmp[Int_CurrLoc] = Flt_PrevSigAmp
                     Flt_VPeak = Flt_PrevSigAmp
-                    print IntIdx, "GOTCHA!"
                     continue
         return Dict_Loc_ThresholdAmp, Dict_MaxLoc_MaxAmp
 

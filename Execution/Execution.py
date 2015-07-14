@@ -54,7 +54,6 @@ class DrMPPGAnalysis:
     def ConvertFrequencyDomain(self):
         Object_FFT = FourierTransformation(Array_Signal=self.Array_PPG, Flt_SamplingRate=self.FltSamplingRate)
         Array_FrequencyDomain, Array_FourierResult= Object_FFT.Compute_FrequencyDomain()
-        Object_FFT.PLOT()
         return Array_FrequencyDomain, Array_FourierResult
 
     def MAReduction(self):
@@ -65,6 +64,9 @@ class DrMPPGAnalysis:
         Flt_Resp_Lower = 0.2
         Flt_Resp_Upper = 0.35
         ##############################
+        Object_FFT = FourierTransformation(Array_Signal=self.Array_PPG, Flt_SamplingRate=self.FltSamplingRate)
+        Array_InverseTransform = Object_FFT.Compute_InverseFourier()
+        return Array_InverseTransform
 
 
 
@@ -81,6 +83,8 @@ if __name__ == "__main__":
     Array_FilteredPPG = Object_DrMPPG.BandPassFilter()
     Dict_Loc_ThresholdAmp, Dict_MaxLoc_MaxAmp = Object_DrMPPG.AdaptiveThreshold()
     Array_FrequencyDomain, Array_FourierResult = Object_DrMPPG.ConvertFrequencyDomain()
+    Array_InverseFourier = Object_DrMPPG.MAReduction()
+
 
     PLOT = True
     # PLOT = False
@@ -91,7 +95,9 @@ if __name__ == "__main__":
         plt.grid()
         plt.plot(Array_RawPPG,'b',label="Raw PPG")
         plt.plot(Array_FilteredPPG,'r',label = "Filtered PPG")
+        plt.plot(Array_InverseFourier,'g', label="Inverse PPG")
         plt.legend()
+
 
         plt.figure()
         plt.title("Adaptive Threshold")
