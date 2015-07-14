@@ -56,7 +56,7 @@ class DrMPPGAnalysis:
         Array_FrequencyDomain, Array_FourierResult= Object_FFT.Compute_FrequencyDomain()
         return Array_FrequencyDomain, Array_FourierResult
 
-    def MAReduction(self):
+    def ConvertInvertFourier(self):
         ### ControlVaraible ###
         # Source = Raghu Ram et al., (2012) A Noven Approach for Motion Artifact Reduction in PPG Signals Based on AS-LMS Adaptive Filter
         Flt_Pulsatile_Lower = 0.5
@@ -64,9 +64,20 @@ class DrMPPGAnalysis:
         Flt_Resp_Lower = 0.2
         Flt_Resp_Upper = 0.35
         ##############################
-        Object_FFT = FourierTransformation(Array_Signal=self.Array_PPG, Flt_SamplingRate=self.FltSamplingRate)
-        Array_InverseTransform = Object_FFT.Compute_InverseFourier()
-        return Array_InverseTransform
+        Array_Signal = self.BandPassFilter()
+        NormalizedTerm = (len(self.Array_PPG)/ 2)
+        Object_FFT = FourierTransformation(Array_Signal=Array_Signal, Flt_SamplingRate=self.FltSamplingRate)
+        Array_FrequencyDomain, Array_FourierResult = Object_FFT.Compute_FrequencyDomain()
+        for IntIdx in range(len(Array_FrequencyDomain)):
+            # Cut Resp Power
+            Hz = Array_FrequencyDomain[IntIdx]
+            if Hz > Flt_Resp_Lower and Hz < Flt_Resp_Upper:
+                Array_FourierResult[IntIdx] = 0.0
+            elif Hz > Flt_Pulsatile_Lower and Hz < Flt_Pulsatile_Upper:
+                Array_FourierResult[IntIdx] = 0.0
+        Array_InverseFourierSignal = 2*np.fft.ifft(Array_FourierResult*NormalizedTerm).real
+
+        return Array_InverseFourierSignal
 
 
 
@@ -76,15 +87,14 @@ class DrMPPGAnalysis:
 if __name__ == "__main__":
     Str_DataName = "PPG_Walk"
     List_DataNum = [1,2,3,4,5,6,7]
-    Int_DataNum = 2
+    Int_DataNum = 6
     Object_DrMPPG = DrMPPGAnalysis(Str_DataName=Str_DataName, Int_DataNum=Int_DataNum)
 
     Array_RawPPG = Object_DrMPPG.Array_PPG
     Array_FilteredPPG = Object_DrMPPG.BandPassFilter()
     Dict_Loc_ThresholdAmp, Dict_MaxLoc_MaxAmp = Object_DrMPPG.AdaptiveThreshold()
     Array_FrequencyDomain, Array_FourierResult = Object_DrMPPG.ConvertFrequencyDomain()
-    Array_InverseFourier = Object_DrMPPG.MAReduction()
-
+    Array_NoiseReference = Object_DrMPPG.ConvertInvertFourier()
 
     PLOT = True
     # PLOT = False
@@ -95,8 +105,13 @@ if __name__ == "__main__":
         plt.grid()
         plt.plot(Array_RawPPG,'b',label="Raw PPG")
         plt.plot(Array_FilteredPPG,'r',label = "Filtered PPG")
-        plt.plot(Array_InverseFourier,'g', label="Inverse PPG")
+        plt.plot(Array_NoiseReference,'g', label="Inverse PPG")
         plt.legend()
+
+        plt.figure()
+        plt.title("Frequency Analysis of PPG")
+        plt.stem(Array_FrequencyDomain, Array_FourierResult)
+        plt.grid()
 
 
         plt.figure()
@@ -105,6 +120,5 @@ if __name__ == "__main__":
         plt.plot(Array_FilteredPPG,'b', label="Filtered PPG")
         plt.plot(Dict_Loc_ThresholdAmp.keys(), Dict_Loc_ThresholdAmp.values(),'g', label="Threhsold")
         plt.plot(Dict_MaxLoc_MaxAmp.keys(), Dict_MaxLoc_MaxAmp.values(),'ro', label="Peak")
-
 
         plt.show()
