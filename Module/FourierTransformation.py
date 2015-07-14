@@ -27,11 +27,13 @@ class FourierTransformation:
         # To get the length
         Int_SignalLength = len(self.Array_Signal)
         # Create Vector
-        Array_FrequencyDomain = np.array(range(0,Int_SignalLength))
+        Array_FrequencyDomain = np.linspace(start=0,stop=Int_SignalLength,num = Int_SignalLength)
+        # np.array(range(0,Int_SignalLength))
         # How long seconds it sampled
         Flt_HowLongSecSampled = Int_SignalLength / float(self.Flt_SamplingRate)
         # Frequency Domain (X-axis)
         Array_FrequencyDomain /= Flt_HowLongSecSampled
+        print Array_FrequencyDomain
         # Normalize data
 
 
@@ -60,7 +62,7 @@ class FourierTransformation:
 
 
 if __name__ == "__main__":
-    Int_SamplingRate = 300
+    Int_SamplingRate = 1000
     Frequency = 10
     Flt_SamplingInterval = 1/float(Int_SamplingRate)
     PLOT = True

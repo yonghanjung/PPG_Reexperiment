@@ -15,7 +15,10 @@ import pandas as pd
 from Module.data_call import data_call
 from Module.bandpass import BandPassFilter
 from Module.AdaptiveThreshold import AdaptiveThreshold
+from Module.FourierTransformation import FourierTransformation
+
 import matplotlib.pyplot as plt
+
 
 ''' Function or Class '''
 
@@ -27,7 +30,7 @@ class DrMPPGAnalysis:
 
         ## CONTROL VARIABLE ##
         self.FltSamplingRate = 75.0
-        self.Array_PPG = self.Array_PPG[:5 * int(self.FltSamplingRate)]
+        self.Array_PPG = self.Array_PPG[:10 * int(self.FltSamplingRate)]
         self.Flt_LowCut = 0.5
         self.Flt_HighCut = 9.0
         self.Int_BandPassOrder = 5
@@ -49,7 +52,20 @@ class DrMPPGAnalysis:
         return Dict_Loc_ThresholdAmp, Dict_MaxLoc_MaxAmp
 
     def ConvertFrequencyDomain(self):
-        pass
+        Object_FFT = FourierTransformation(Array_Signal=self.Array_PPG, Flt_SamplingRate=self.FltSamplingRate)
+        Array_FrequencyDomain, Array_FourierResult= Object_FFT.Compute_FrequencyDomain()
+        Object_FFT.PLOT()
+        return Array_FrequencyDomain, Array_FourierResult
+
+    def MAReduction(self):
+        ### ControlVaraible ###
+        # Source = Raghu Ram et al., (2012) A Noven Approach for Motion Artifact Reduction in PPG Signals Based on AS-LMS Adaptive Filter
+        Flt_Pulsatile_Lower = 0.5
+        Flt_Pulsatile_Upper = 4.0
+        Flt_Resp_Lower = 0.2
+        Flt_Resp_Upper = 0.35
+        ##############################
+
 
 
 
@@ -64,6 +80,7 @@ if __name__ == "__main__":
     Array_RawPPG = Object_DrMPPG.Array_PPG
     Array_FilteredPPG = Object_DrMPPG.BandPassFilter()
     Dict_Loc_ThresholdAmp, Dict_MaxLoc_MaxAmp = Object_DrMPPG.AdaptiveThreshold()
+    Array_FrequencyDomain, Array_FourierResult = Object_DrMPPG.ConvertFrequencyDomain()
 
     PLOT = True
     # PLOT = False
@@ -82,5 +99,6 @@ if __name__ == "__main__":
         plt.plot(Array_FilteredPPG,'b', label="Filtered PPG")
         plt.plot(Dict_Loc_ThresholdAmp.keys(), Dict_Loc_ThresholdAmp.values(),'g', label="Threhsold")
         plt.plot(Dict_MaxLoc_MaxAmp.keys(), Dict_MaxLoc_MaxAmp.values(),'ro', label="Peak")
+
 
         plt.show()
