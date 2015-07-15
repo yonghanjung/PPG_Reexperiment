@@ -35,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CompeteMethod_LCM.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="CompeteMethod_LCM.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CompeteMethod/CompeteMethod_LCM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9206349" vertical-offset="687" max-vertical-offset="1140">
-              <caret line="69" column="13" selection-start-line="69" selection-start-column="13" selection-end-line="69" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="984" max-vertical-offset="1444">
+              <caret line="60" column="60" selection-start-line="56" selection-start-column="4" selection-end-line="60" selection-end-column="60" />
               <folding>
                 <element signature="e#120#138#0" expanded="true" />
               </folding>
@@ -57,12 +57,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CompeteMethod_FirstDeriv.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="CompeteMethod_FirstDeriv.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CompeteMethod/CompeteMethod_FirstDeriv.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
-              <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
-              <folding />
+            <state vertical-scroll-proportion="0.67945206" vertical-offset="400" max-vertical-offset="1566">
+              <caret line="36" column="79" selection-start-line="36" selection-start-column="79" selection-end-line="36" selection-end-column="79" />
+              <folding>
+                <element signature="e#120#138#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -120,6 +122,7 @@
         <option value="$PROJECT_DIR$/Execution/Execution.py" />
         <option value="$PROJECT_DIR$/Module/AdaptiveThreshold.py" />
         <option value="$PROJECT_DIR$/CompeteMethod/CompeteMethod_LCM.py" />
+        <option value="$PROJECT_DIR$/CompeteMethod/CompeteMethod_FirstDeriv.py" />
       </list>
     </option>
   </component>
@@ -256,7 +259,7 @@
       <recent name="$PROJECT_DIR$/Data" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.CompeteMethod_LCM">
+  <component name="RunManager" selected="Python.CompeteMethod_FirstDeriv">
     <configuration default="false" name="Execution" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -270,24 +273,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="PPG_Reexperiment" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Execution/Execution.py" />
-      <option name="PARAMETERS" value="" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="FourierTransformation" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Module" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="PPG_Reexperiment" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Module/FourierTransformation.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
@@ -342,6 +327,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="PPG_Reexperiment" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CompeteMethod/CompeteMethod_LCM.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="CompeteMethod_FirstDeriv" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/CompeteMethod" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="PPG_Reexperiment" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CompeteMethod/CompeteMethod_FirstDeriv.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
@@ -470,18 +473,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.Execution" />
-      <item index="1" class="java.lang.String" itemvalue="Python.FourierTransformation" />
-      <item index="2" class="java.lang.String" itemvalue="Python.SlopeSumFunction" />
-      <item index="3" class="java.lang.String" itemvalue="Python.HammingWindowPractice" />
-      <item index="4" class="java.lang.String" itemvalue="Python.CompeteMethod_LCM" />
+      <item index="1" class="java.lang.String" itemvalue="Python.SlopeSumFunction" />
+      <item index="2" class="java.lang.String" itemvalue="Python.HammingWindowPractice" />
+      <item index="3" class="java.lang.String" itemvalue="Python.CompeteMethod_LCM" />
+      <item index="4" class="java.lang.String" itemvalue="Python.CompeteMethod_FirstDeriv" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.CompeteMethod_LCM" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Execution" />
-        <item index="2" class="java.lang.String" itemvalue="Python.HammingWindowPractice" />
-        <item index="3" class="java.lang.String" itemvalue="Python.SlopeSumFunction" />
-        <item index="4" class="java.lang.String" itemvalue="Python.FourierTransformation" />
+        <item index="0" class="java.lang.String" itemvalue="Python.CompeteMethod_FirstDeriv" />
+        <item index="1" class="java.lang.String" itemvalue="Python.CompeteMethod_LCM" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Execution" />
+        <item index="3" class="java.lang.String" itemvalue="Python.HammingWindowPractice" />
+        <item index="4" class="java.lang.String" itemvalue="Python.SlopeSumFunction" />
       </list>
     </recent_temporary>
   </component>
@@ -652,22 +655,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CompeteMethod/CompeteMethod_SSF.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CompeteMethod/CompeteMethod_FirstDeriv.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
-          <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Execution/Execution.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2125" max-vertical-offset="3885">
@@ -688,10 +675,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/CompeteMethod/CompeteMethod_SSF.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CompeteMethod/CompeteMethod_LCM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9206349" vertical-offset="687" max-vertical-offset="1140">
-          <caret line="69" column="13" selection-start-line="69" selection-start-column="13" selection-end-line="69" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="984" max-vertical-offset="1444">
+          <caret line="60" column="60" selection-start-line="56" selection-start-column="4" selection-end-line="60" selection-end-column="60" />
+          <folding>
+            <element signature="e#120#138#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CompeteMethod/CompeteMethod_FirstDeriv.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.67945206" vertical-offset="400" max-vertical-offset="1566">
+          <caret line="36" column="79" selection-start-line="36" selection-start-column="79" selection-end-line="36" selection-end-column="79" />
           <folding>
             <element signature="e#120#138#0" expanded="true" />
           </folding>
