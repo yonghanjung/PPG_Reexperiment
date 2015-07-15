@@ -63,7 +63,11 @@ class FourierTransformation:
         NormalizedTerm = (Int_SignalLength / 2)
         Flt_HowLongSecSampled = Int_SignalLength / float(self.Flt_SamplingRate)
         Array_FrequencyDomain, Array_FourierResult = self.Compute_FrequencyDomain()
-        Array_FourierResult[Array_FrequencyDomain < Flt_CutFreq] = 0
+        for IntIdx in range(len(Array_FourierResult)):
+            Hz = Array_FrequencyDomain[IntIdx]
+            if Hz < Flt_CutFreq:
+                Array_FourierResult[IntIdx] = 0.0
+        # Array_FourierResult[Array_FrequencyDomain < Flt_CutFreq] = 0
         Array_InverseFourierSignal = 2*np.fft.ifft(Array_FourierResult*NormalizedTerm).real
         return Array_InverseFourierSignal
 
