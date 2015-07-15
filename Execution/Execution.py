@@ -35,7 +35,7 @@ class DrMPPGAnalysis:
         ## CONTROL VARIABLE ##
         Int_Start = 40
         Int_End = 43
-        Int_CutTime = 30
+        Int_CutTime = 40
         self.Array_PPG_Long = self.Array_PPG_Long[: int(self.FltSamplingRate) * Int_CutTime]
         self.Array_TimeDomain_Long = self.Array_TimeDomain_Long[:int(self.FltSamplingRate) * Int_CutTime]
         self.Array_PPG = self.Array_PPG_Long[ Int_Start *int(self.FltSamplingRate)   :Int_End * int(self.FltSamplingRate)]
@@ -70,7 +70,7 @@ class DrMPPGAnalysis:
         Int_3secSignalLength = int(self.FltSamplingRate * 3)
         Int_IdxTarget = (Int_3secSignalLength / 2) + 1
         Int_LMSFilterLength = 10
-        Int_SSFBufferLength = 20
+        Int_SSFBufferLength = 10
         Int_BufferPeakFinding = 5
         Dict_PeakTimeLoc_PeakAmp = dict()
 
@@ -88,9 +88,9 @@ class DrMPPGAnalysis:
                 Array_HammingBlockSignal = self.Block_Signal(Array_BlockSignal)
                 Array_MARBlockSignal = self.Removing_MotionArtifact(Int_FilterLength=Int_LMSFilterLength, Array_Signal=Array_HammingBlockSignal,)
                 Array_MARBlockSignal = np.concatenate([np.zeros(Int_LMSFilterLength-1), Array_MARBlockSignal])
-                Array_SSFBlockSignal = self.Computing_SSF(Array_MARBlockSignal, Int_SSFBufferLength)
+                Array_SSFBlockSignal, Flt_Threshold = self.Computing_SSF(Array_MARBlockSignal, Int_SSFBufferLength)
                 Array_SSFBlockSignal = np.concatenate([np.zeros(Int_SSFBufferLength), Array_SSFBlockSignal])
-                Dict_Loc_ThresholdAmp, Dict_MaxLoc_MaxAmp = self.AdaptiveThreshold(Array_Signal=Array_SSFBlockSignal)
+                Dict_Loc_ThresholdAmp, Dict_MaxLoc_MaxAmp = self.AdaptiveThreshold(Array_Signal=Array_SSFBlockSignal, Flt_AmpThreshold=Flt_Threshold)
                 print IntIdx, Int_IdxTarget, Flt_IdxTarget, Dict_MaxLoc_MaxAmp.keys()
                 # plt.figure(IntIdx)
                 # plt.title("MA reduced Signal")
@@ -105,10 +105,10 @@ class DrMPPGAnalysis:
                 # plt.plot(Array_BlockTime[:len(Array_SSFBlockSignal)], Array_SSFBlockSignal)
                 # plt.plot(Array_BlockTime[Dict_Loc_ThresholdAmp.keys()], Dict_Loc_ThresholdAmp.values(),'g')
                 # plt.plot(Array_BlockTime[Dict_MaxLoc_MaxAmp.keys()], Dict_MaxLoc_MaxAmp.values(),'ro')
-                if self.Determine_PeakFindingBuffer(Int_PeakIdx=Int_IdxTarget-Int_SSFBufferLength, Int_PeakFindingBuffer=Int_BufferPeakFinding, List_PeakCand=Dict_MaxLoc_MaxAmp.keys()) == True:
+                if self.Determine_PeakFindingBuffer(Int_PeakIdx=Int_IdxTarget, Int_PeakFindingBuffer=Int_BufferPeakFinding, List_PeakCand=Dict_MaxLoc_MaxAmp.keys()) == True:
                 # if Int_TargetIdx in Dict_MaxLoc_MaxAmp.keys():
                     print "PEAK!", IntIdx, Int_IdxTarget, Flt_IdxTarget, Dict_MaxLoc_MaxAmp.keys()
-                    Dict_PeakTimeLoc_PeakAmp[Flt_IdxTarget] = Flt_TargetPt
+                    Dict_PeakTimeLoc_PeakAmp[Flt_IdxTarget] = Array_BlockSignal[Int_IdxTarget]
         return Dict_PeakTimeLoc_PeakAmp
 
     def BandPassFilter(self):
@@ -162,15 +162,16 @@ class DrMPPGAnalysis:
 
     def Computing_SSF(self, Array_Signal, INt_SSF_FilterLength):
         Object_SSF = SlopeSumFunction(Array_SignalInWindow=Array_Signal, Int_SSFLength=INt_SSF_FilterLength)
-        return Object_SSF.Conduct_SSF()
+        Array_SSF, Flt_Threshold = Object_SSF.Conduct_SSF()
+        return Array_SSF, Flt_Threshold
 
-    def AdaptiveThreshold(self, Array_Signal):
+    def AdaptiveThreshold(self, Array_Signal, Flt_AmpThreshold):
         ## Control Variable
         Flt_SlopeThreshold = -0.6
         Flt_BackThreshold = 0.6 * self.FltSamplingRate
         #####################
 
-        Object_AdaptiveThreshold = AdaptiveThreshold(Array_SignalinWindow=Array_Signal, Flt_SamplingRate=self.FltSamplingRate)
+        Object_AdaptiveThreshold = AdaptiveThreshold(Array_SignalinWindow=Array_Signal, Flt_SamplingRate=self.FltSamplingRate, Flt_AmpThreshold=Flt_AmpThreshold)
         Dict_Loc_ThresholdAmp, Dict_MaxLoc_MaxAmp = Object_AdaptiveThreshold.AdaptiveThreshold(Flt_SlopeThreshold, Flt_BackThreshold)
         return Dict_Loc_ThresholdAmp, Dict_MaxLoc_MaxAmp
 
@@ -180,16 +181,26 @@ class DrMPPGAnalysis:
 if __name__ == "__main__":
     Str_DataName = "PPG_Walk"
     List_DataNum = [1,2,3,4,5,6,7]
-    Int_DataNum = 2
+    List_MAData = [2,4,6]
+    List_Clean = [1,3,5,7]
+    Int_DataNum = 1
+    # 1 : Moderately Clean
+    # 2 : MA Noise Corrupted
+    # 3 : Quite Clean
+    # 4 : Very Corrupted
+    # 5 : Very Clean
+    # 6 : Quite Corrupted
+    # 7 : Quite Clean
+
     Int_FilterLength = 10
     Int_SSFLength = 10
     Object_DrMPPG = DrMPPGAnalysis(Str_DataName=Str_DataName, Int_DataNum=Int_DataNum)
     Array_PPG =Object_DrMPPG.Array_PPG_Long
     Array_Time = Object_DrMPPG.Array_TimeDomain_Long
-    StartIdx = int(75 * (9.49-1.5))
+    StartIdx = int(75 * (9.33-1.5))
 
-    Mode = "Practice"
-    # Mode = "Real"
+    # Mode = "Practice"
+    Mode = "Real"
 
     if Mode == "Practice":
         Array_PPGSample = Array_PPG[StartIdx:StartIdx+3*75]
@@ -197,9 +208,9 @@ if __name__ == "__main__":
         Array_HammingSample = Object_DrMPPG.Block_Signal(Array_PPGSample)
         Array_MARemovalSample = Object_DrMPPG.Removing_MotionArtifact(Int_FilterLength=Int_FilterLength, Array_Signal=Array_HammingSample)
         Array_MARemovalSample = np.concatenate([np.zeros(Int_FilterLength-1), Array_MARemovalSample])
-        Array_SSFSample = Object_DrMPPG.Computing_SSF(Array_Signal=Array_MARemovalSample, INt_SSF_FilterLength=Int_SSFLength)
+        Array_SSFSample, Flt_Threshold = Object_DrMPPG.Computing_SSF(Array_Signal=Array_MARemovalSample, INt_SSF_FilterLength=Int_SSFLength)
         Array_SSFSample = np.concatenate([np.zeros(Int_SSFLength), Array_SSFSample])
-        Dict_Loc_ThresholdAmp, Dict_MaxLoc_MaxAmp = Object_DrMPPG.AdaptiveThreshold(Array_Signal=Array_SSFSample)
+        Dict_Loc_ThresholdAmp, Dict_MaxLoc_MaxAmp = Object_DrMPPG.AdaptiveThreshold(Array_Signal=Array_SSFSample, Flt_AmpThreshold=Flt_Threshold)
 
         Int_TargetIdx = 3*75/2 + 1
 
@@ -215,7 +226,7 @@ if __name__ == "__main__":
         plt.plot(Array_TimeSample, Array_SSFSample, 'purple', label="Slope Sum")
         plt.plot(Array_TimeSample[Dict_Loc_ThresholdAmp.keys()], Dict_Loc_ThresholdAmp.values(),'orange')
         plt.plot(Array_TimeSample[Dict_MaxLoc_MaxAmp.keys()], Dict_MaxLoc_MaxAmp.values(),'ko')
-        plt.plot(Array_TimeSample[Int_TargetIdx - Int_SSFLength], Array_SSFSample[Int_TargetIdx-Int_SSFLength], 'go', label="Target Point")
+        plt.plot(Array_TimeSample[Int_TargetIdx], Array_SSFSample[Int_TargetIdx], 'go', label="Target Point")
         plt.legend()
 
         plt.show()
@@ -226,7 +237,7 @@ if __name__ == "__main__":
             print key, Dict_PeakTimeLoc_PeakAmp[key]
 
         plt.figure()
-        plt.title("Peak Finding")
+        plt.title("Peak Finding SigNum : "+ str(Int_DataNum))
         plt.grid()
         plt.plot(Array_Time, Array_PPG,'bo')
         plt.plot(Dict_PeakTimeLoc_PeakAmp.keys(), Dict_PeakTimeLoc_PeakAmp.values(),'ro')

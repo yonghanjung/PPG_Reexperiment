@@ -36,7 +36,8 @@ class SlopeSumFunction:
             else:
                 Array_SlopeSumSignal.append(0.0)
         Array_SlopeSumSignal = np.array(Array_SlopeSumSignal)
-        return Array_SlopeSumSignal
+        Flt_ThresholdValue = np.max(Array_SlopeSumSignal) * 0.7
+        return Array_SlopeSumSignal, Flt_ThresholdValue
 
 
 

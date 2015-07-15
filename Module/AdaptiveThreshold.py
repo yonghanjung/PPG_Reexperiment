@@ -7,9 +7,10 @@ import matplotlib.pyplot as plt
 
 # DATA IMPORT
 class AdaptiveThreshold:
-    def __init__(self, Array_SignalinWindow, Flt_SamplingRate ):
+    def __init__(self, Array_SignalinWindow, Flt_SamplingRate, Flt_AmpThreshold ):
         self.Array_PPGinWindow = np.squeeze(np.asarray(Array_SignalinWindow))
         self.Flt_SamplingRate = Flt_SamplingRate
+        self.Flt_AmpThreshold = Flt_AmpThreshold
 
     def check_cross(self, prev_thr, prev_sig, cur_thr, cur_sig):
         if prev_thr > prev_sig:
@@ -92,8 +93,9 @@ class AdaptiveThreshold:
                     Dict_Loc_ThresholdAmp[IntIdx] = Flt_NewThreshold
                     # Off Peak finding mode
                     Bool_ThresholdUpdateMode = True
-                    Dict_MaxLoc_MaxAmp[Int_CurrLoc] = Flt_PrevSigAmp
-                    Flt_VPeak = Flt_PrevSigAmp
+                    if Flt_PrevSigAmp > self.Flt_AmpThreshold:
+                        Dict_MaxLoc_MaxAmp[Int_CurrLoc] = Flt_PrevSigAmp
+                        Flt_VPeak = Flt_PrevSigAmp
                     continue
         return Dict_Loc_ThresholdAmp, Dict_MaxLoc_MaxAmp
 
