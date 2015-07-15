@@ -35,7 +35,7 @@ class DrMPPGAnalysis:
         ## CONTROL VARIABLE ##
         Int_Start = 40
         Int_End = 43
-        Int_CutTime = 5
+        Int_CutTime = 30
         self.Array_PPG_Long = self.Array_PPG_Long[: int(self.FltSamplingRate) * Int_CutTime]
         self.Array_TimeDomain_Long = self.Array_TimeDomain_Long[:int(self.FltSamplingRate) * Int_CutTime]
         self.Array_PPG = self.Array_PPG_Long[ Int_Start *int(self.FltSamplingRate)   :Int_End * int(self.FltSamplingRate)]
@@ -86,6 +86,7 @@ class DrMPPGAnalysis:
             if self.Determine_PeakorNot(PrevAmp=Flt_PrevPt, CurAmp=Flt_TargetPt, NextAmp=Flt_NextPt) == True:
                 Array_HammingBlockSignal = self.Block_Signal(Array_BlockSignal)
                 Array_MARBlockSignal = self.Removing_MotionArtifact(Int_FilterLength=Int_LMSFilterLength, Array_Signal=Array_HammingBlockSignal,)
+                Array_MARBlockSignal = np.concatenate([np.zeros(Int_LMSFilterLength-1), Array_MARBlockSignal])
                 Array_SSFBlockSignal = self.Computing_SSF(Array_MARBlockSignal, Int_SSFBufferLength)
                 Dict_Loc_ThresholdAmp, Dict_MaxLoc_MaxAmp = self.AdaptiveThreshold(Array_Signal=Array_SSFBlockSignal)
                 print IntIdx, Int_IdxTarget, Flt_IdxTarget, Dict_MaxLoc_MaxAmp.keys()
@@ -177,28 +178,58 @@ class DrMPPGAnalysis:
 if __name__ == "__main__":
     Str_DataName = "PPG_Walk"
     List_DataNum = [1,2,3,4,5,6,7]
-    Int_DataNum = 6
+    Int_DataNum = 2
     Int_FilterLength = 10
+    Int_SSFLength = 20
     Object_DrMPPG = DrMPPGAnalysis(Str_DataName=Str_DataName, Int_DataNum=Int_DataNum)
     Array_PPG =Object_DrMPPG.Array_PPG_Long
     Array_Time = Object_DrMPPG.Array_TimeDomain_Long
+    StartIdx = 320
 
-    Dict_PeakTimeLoc_PeakAmp = Object_DrMPPG.Execution()
+    Array_PPGSample = Array_PPG[StartIdx:StartIdx+3*75]
+    Array_TimeSample = Array_Time[StartIdx:StartIdx+ 3*75]
+    Array_HammingSample = Object_DrMPPG.Block_Signal(Array_PPGSample)
+    Array_MARemovalSample = Object_DrMPPG.Removing_MotionArtifact(Int_FilterLength=Int_FilterLength, Array_Signal=Array_HammingSample)
+    Array_MARemovalSample = np.concatenate([np.zeros(Int_FilterLength-1), Array_MARemovalSample])
+    Array_SSFSample = Object_DrMPPG.Computing_SSF(Array_Signal=Array_MARemovalSample, INt_SSF_FilterLength=Int_SSFLength)
+    Array_SSFSample = np.concatenate([np.zeros(Int_SSFLength), Array_SSFSample])
+    Dict_Loc_ThresholdAmp, Dict_MaxLoc_MaxAmp = Object_DrMPPG.AdaptiveThreshold(Array_Signal=Array_SSFSample)
+
+    Int_TargetIdx = 3*75/2 + 1
+
+    plt.figure()
+    # Peak retained?
+    plt.title("PPG Example")
+    plt.grid()
+    plt.plot(Array_TimeSample, Array_PPGSample,'b', label="Raw Signal")
+    plt.plot(Array_TimeSample, Array_HammingSample,'g', label="Hamming Signal")
+    plt.plot(Array_TimeSample[Int_TargetIdx], Array_HammingSample[Int_TargetIdx],'go')
+    plt.plot(Array_TimeSample, Array_MARemovalSample,'r', label="MA removed")
+    plt.plot(Array_TimeSample[Int_TargetIdx], Array_MARemovalSample[Int_TargetIdx],'go')
+    plt.plot(Array_TimeSample, Array_SSFSample, 'purple', label="Slope Sum")
+    plt.plot(Array_TimeSample[Dict_Loc_ThresholdAmp.keys()], Dict_Loc_ThresholdAmp.values(),'orange')
+    plt.plot(Array_TimeSample[Dict_MaxLoc_MaxAmp.keys()], Dict_MaxLoc_MaxAmp.values(),'ko')
+    plt.plot(Array_TimeSample[Int_TargetIdx], Array_SSFSample[Int_TargetIdx], 'go', label="Target Point")
+    plt.legend()
+
+    plt.show()
+
+    # Dict_PeakTimeLoc_PeakAmp = Object_DrMPPG.Execution()
     # for idx, key in enumerate(sorted(Dict_PeakTimeLoc_PeakAmp)):
     #     print key, Dict_PeakTimeLoc_PeakAmp[key]
 
-    plt.figure()
-    plt.title("Peak Finding")
-    plt.grid()
-    plt.plot(Array_Time, Array_PPG,'bo')
-    plt.plot(Dict_PeakTimeLoc_PeakAmp.keys(), Dict_PeakTimeLoc_PeakAmp.values(),'ro')
-
-    plt.figure()
-    plt.title("Peak Finding")
-    plt.grid()
-    plt.plot(Array_Time, Array_PPG,'b')
-    plt.plot(Dict_PeakTimeLoc_PeakAmp.keys(), Dict_PeakTimeLoc_PeakAmp.values(),'ro')
-    plt.show()
+    # plt.figure()
+    # plt.title("Peak Finding")
+    # plt.grid()
+    # plt.plot(Array_Time, Array_PPG,'bo')
+    # plt.plot(Dict_PeakTimeLoc_PeakAmp.keys(), Dict_PeakTimeLoc_PeakAmp.values(),'ro')
+    #
+    # plt.figure()
+    # plt.title("Peak Finding")
+    # plt.grid()
+    # plt.plot(Array_Time, Array_PPG,'b')
+    # plt.plot(Dict_PeakTimeLoc_PeakAmp.keys(), Dict_PeakTimeLoc_PeakAmp.values(),'ro')
+    # plt.show()
 
 
     # Array_TimeDomain = Object_DrMPPG.Array_TimeDomain
