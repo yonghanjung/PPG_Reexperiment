@@ -31,7 +31,7 @@ class AdaptiveThreshold:
         Dict_MaxLoc_MaxAmp = dict()
         Dict_Loc_ThresholdAmp = dict()
         Flt_NewThreshold = 0.0
-        Flt_OldThreshold = np.max(self.Array_PPGinWindow) * 0.5
+        Flt_OldThreshold = np.max(self.Array_PPGinWindow) * 0.2
         Flt_StdPPG = np.std(self.Array_PPGinWindow)
         Flt_VPeak = 0.0
 

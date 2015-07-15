@@ -184,7 +184,7 @@ if __name__ == "__main__":
     List_DataNum = [1,2,3,4,5,6,7]
     List_MAData = [2,4,6]
     List_Clean = [1,3,5,7]
-    Int_DataNum = 3
+    Int_DataNum = 2
     # 1 : Moderately Clean
     # 2 : MA Noise Corrupted
     # 3 : Quite Clean
