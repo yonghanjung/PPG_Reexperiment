@@ -35,7 +35,7 @@ class DrMPPGAnalysis:
         ## CONTROL VARIABLE ##
         Int_Start = 40
         Int_End = 43
-        Int_CutTime = 40
+        Int_CutTime = 60
         self.Array_PPG_Long = self.Array_PPG_Long[: int(self.FltSamplingRate) * Int_CutTime]
         self.Array_TimeDomain_Long = self.Array_TimeDomain_Long[:int(self.FltSamplingRate) * Int_CutTime]
         self.Array_PPG = self.Array_PPG_Long[ Int_Start *int(self.FltSamplingRate)   :Int_End * int(self.FltSamplingRate)]
@@ -180,10 +180,12 @@ class DrMPPGAnalysis:
 
 
 if __name__ == "__main__":
-    Str_DataName = "PPG_Walk"
+    # Str_DataName = "PPG_Walk"
+    Str_DataName = "PPG_KW_long" ## SUPER CLEAN
     List_DataNum = [1,2,3,4,5,6,7]
     List_MAData = [2,4,6]
     List_Clean = [1,3,5,7]
+    List_KW = [0,1,2]
     Int_DataNum = 2
     # 1 : Moderately Clean
     # 2 : MA Noise Corrupted
