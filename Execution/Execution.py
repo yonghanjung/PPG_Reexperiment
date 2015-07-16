@@ -180,19 +180,19 @@ class DrMPPGAnalysis:
 
 
 if __name__ == "__main__":
-    # Str_DataName = "PPG_Walk"
-    Str_DataName = "PPG_KW_long" ## SUPER CLEAN
+    Str_DataName = "PPG_Walk"
+    # Str_DataName = "PPG_KW_long" ## SUPER CLEAN
     List_DataNum = [1,2,3,4,5,6,7]
     List_MAData = [2,4,6]
     List_Clean = [1,3,5,7]
     List_KW = [0,1,2]
-    Int_DataNum = 2
-    # 1 : Moderately Clean
-    # 2 : MA Noise Corrupted
-    # 3 : Quite Clean
-    # 4 : Very Corrupted
-    # 5 : Very Clean
-    # 6 : Quite Corrupted
+    Int_DataNum = 7
+    # 1 : Moderately Clean, little corrupted
+    # 2 : MA Super corrupted
+    # 3 : Super Clean
+    # 4 : MA Corrupted
+    # 5 : Clean
+    # 6 : Corrupted
     # 7 : Quite Clean
 
     Int_FilterLength = 10

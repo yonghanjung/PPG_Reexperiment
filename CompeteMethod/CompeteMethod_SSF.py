@@ -70,8 +70,6 @@ class SSFMethod:
 if __name__ == "__main__":
     Str_DataName = "PPG_KW_long"
     Int_DataNum = 0
-    Int_StartSec = 0
-    Int_EndSec = 5
     Flt_SamplingRate = 75
     Flt_highCut = 11
     Flt_LowCut = 0.5
