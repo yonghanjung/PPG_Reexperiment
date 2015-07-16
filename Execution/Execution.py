@@ -37,12 +37,12 @@ class DrMPPGAnalysis:
         Int_End = 43
         Int_CutTime = 60
         self.Array_PPG_Long = self.Array_PPG_Long[: int(self.FltSamplingRate) * Int_CutTime]
+        self.Array_PPG_Long = self.BandPassFilter(Array_Signal=self.Array_PPG_Long)
+        # self.Array_PPG_Long = self.BandPassFilter(self.Array_PPG_Long)
         self.Array_TimeDomain_Long = self.Array_TimeDomain_Long[:int(self.FltSamplingRate) * Int_CutTime]
         self.Array_PPG = self.Array_PPG_Long[ Int_Start *int(self.FltSamplingRate)   :Int_End * int(self.FltSamplingRate)]
         self.Array_TimeDomain = self.Array_TimeDomain_Long[Int_Start *int(self.FltSamplingRate)   :Int_End * int(self.FltSamplingRate)]
-        self.Flt_LowCut = 0.0
-        self.Flt_HighCut = 9.0
-        self.Int_BandPassOrder = 5
+
         #####################
     # Target is a peak or not
     def Determine_PeakorNot(self, PrevAmp, CurAmp, NextAmp):
@@ -87,7 +87,7 @@ class DrMPPGAnalysis:
             # print Flt_IdxTarget, Flt_TargetPt
             if self.Determine_PeakorNot(PrevAmp=Flt_PrevPt, CurAmp=Flt_TargetPt, NextAmp=Flt_NextPt) == True:
                 Array_HammingBlockSignal = self.Block_Signal(Array_BlockSignal)
-                Array_MARBlockSignal = self.Removing_MotionArtifact(Int_FilterLength=Int_LMSFilterLength, Array_Signal=Array_HammingBlockSignal,)
+                Array_MARBlockSignal = self.Removing_MotionArtifact(Int_FilterLength=Int_LMSFilterLength, Array_Signal=Array_HammingBlockSignal)
                 Array_MARBlockSignal = np.concatenate([np.zeros(Int_LMSFilterLength-1), Array_MARBlockSignal])
                 Array_SSFBlockSignal, Flt_Threshold = self.Computing_SSF(Array_MARBlockSignal, Int_SSFBufferLength)
                 Array_SSFBlockSignal = np.concatenate([np.zeros(Int_SSFBufferLength), Array_SSFBlockSignal])
@@ -99,8 +99,10 @@ class DrMPPGAnalysis:
                     Dict_PeakTimeLoc_PeakAmp[Flt_NewIdxTarget] = Array_BlockSignal[Idx_ModifiedIdx]
         return Dict_PeakTimeLoc_PeakAmp
 
-    def BandPassFilter(self):
-        Object_BandPassFilter = BandPassFilter(Array_Signal=self.Array_PPG, Flt_SamplingRate=self.FltSamplingRate, Flt_LowCut=self.Flt_LowCut, Flt_HighCut=self.Flt_HighCut, Int_BandPassOrder=self.Int_BandPassOrder)
+    def BandPassFilter(self, Array_Signal):
+        self.Flt_LowCut = 0.5
+        self.Flt_HighCut = 9
+        Object_BandPassFilter = BandPassFilter(Array_Signal=Array_Signal, Flt_SamplingRate=self.FltSamplingRate, Flt_LowCut=self.Flt_LowCut, Flt_HighCut=self.Flt_HighCut)
         return Object_BandPassFilter.butter_bandpass_filter()
 
     def Block_Signal(self, Array_Signal):
