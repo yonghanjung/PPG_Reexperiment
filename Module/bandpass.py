@@ -3,12 +3,12 @@
 from scipy.signal import butter, lfilter
 
 class BandPassFilter:
-    def __init__(self, Array_Signal, Flt_SamplingRate, Flt_LowCut, Flt_HighCut, Int_BandPassOrder ) :
+    def __init__(self, Array_Signal, Flt_SamplingRate, Flt_LowCut, Flt_HighCut ) :
         self.Array_Signal = Array_Signal
         self.Flt_SamplingRate = Flt_SamplingRate
         self.Flt_LowCut = Flt_LowCut
         self.Flt_HighCut = Flt_HighCut
-        self.Int_BandPassOrder = Int_BandPassOrder
+        self.Int_BandPassOrder=5
 
     def butter_bandpass(self):
         Flt_NyqFrequency = 0.5 * self.Flt_SamplingRate
