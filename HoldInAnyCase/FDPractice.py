@@ -23,34 +23,21 @@ class FDPractice:
         self.Int_TotalSet = 12
         self.Int_InitSize = 2* 75
         self.Int_SamplingRate = 75
-        
+
     def Conduct_FD(self):
-        Array_DivisionSet, Array_TimeDivisionSet = self.Seperate_Division()
-        Int_DivNum = len(Array_DivisionSet)
-        Dict_ZeroCrossIdx_ZeroCrossAmp = dict()
-
-        for Int_DivIdx in range(Int_DivNum):
-            Array_BlockPPG = Array_DivisionSet[Int_DivIdx]
-            Array_BlockTime = Array_TimeDivisionSet[Int_DivIdx]
-            Array_InitPPG = Array_BlockPPG[:self.Int_InitSize]
-            Flt_Threshold = np.mean(Array_InitPPG)
-            _, Array_TimeLoc, Array_PeakAmp, Array_FirstDeriv = self.FirstDerivative(Array_BlockSignal=Array_BlockPPG, Array_BlockTime=Array_BlockTime, Flt_Threshold=Flt_Threshold)
-            for Time, PeakAmp in np.c_[Array_TimeLoc, Array_PeakAmp]:
-                Dict_ZeroCrossIdx_ZeroCrossAmp[Time] = PeakAmp
-        return Dict_ZeroCrossIdx_ZeroCrossAmp
-
+        pass
 
     def Seperate_Division(self):
         List_DivisionSet = list()
         List_TimeDivisionSet = list()
         for DivisionUnit in range(self.Int_TotalSet-1):
-            Array_EachDivision = self.Array_PPGLong[DivisionUnit * 5 * self.Int_SamplingRate: (DivisionUnit+1)*5*self.Int_SamplingRate]
-            Array_TimeDivision = self.Array_TimeLong[DivisionUnit * 5 * self.Int_SamplingRate: (DivisionUnit+1)*5*self.Int_SamplingRate]
+            Array_EachDivision = self.Array_PPGLong[DivisionUnit * self.Int_SamplingRate: DivisionUnit*self.Int_SamplingRate]
+            Array_TimeDivision = self.Array_TimeLong[DivisionUnit * self.Int_SamplingRate: DivisionUnit*self.Int_SamplingRate]
             List_DivisionSet.append(Array_EachDivision)
             List_TimeDivisionSet.append(Array_TimeDivision)
-        Array_DivisionSet = np.array(List_DivisionSet)
-        Array_TimeDivisionSet = np.array(List_TimeDivisionSet)
-        return Array_DivisionSet, Array_TimeDivisionSet
+        List_DivisionSet = np.array(List_DivisionSet)
+        List_TimeDivisionSet = np.array(List_TimeDivisionSet)
+        return List_DivisionSet, List_TimeDivisionSet
 
 
     def Detect_ZeroCross(self, Flt_CurrDiffSigAmp, Flt_NextDiffSigAmp):
@@ -72,14 +59,14 @@ class FDPractice:
                 if Array_BlockSignal[idx] > Flt_Threshold:
                     Flt_PeakLoc = Array_BlockTime[idx]
                     Array_TimeLoc.append(Flt_PeakLoc)
-                    Array_PeakAmp.append(Array_BlockSignal[idx])
+                    Array_PeakAmp = Array_BlockSignal[idx]
                     Dict_ZeroCrossIdx_ZeroCrossAmp[Flt_PeakLoc] = Array_BlockSignal[idx]
         return Dict_ZeroCrossIdx_ZeroCrossAmp, Array_TimeLoc, Array_PeakAmp, Array_FirstDeriv
 
 
 if __name__ == "__main__":
     Str_DataName = "PPG_KW_long"
-    Int_DataNum = 2
+    Int_DataNum = 1
     Int_StartSec = 0
     Int_EndSec = 5
     Flt_SamplingRate = 75
@@ -97,16 +84,18 @@ if __name__ == "__main__":
     Array_DiffPPG = np.concatenate([np.zeros(1),Array_DiffPPG])
     Array_Zeros = np.zeros(len(Array_PPG))
 
-    Object_FD = FDPractice(Array_PPGLong=Array_PPG_Long, Array_TimeLong=Array_Time_Long)
-    Dict_ZeroCross = Object_FD.Conduct_FD()
-    print Dict_ZeroCross
+    Object_FD = FDPractice()
+    Dict_ZeroCrossIdx_ZeroCrossAmp, Array_TimeLoc, Array_PeakAmp, Array_FirstDeriv = Object_FD.FirstDerivative(Array_BlockSignal=Array_PPG, Array_BlockTime=Array_Time, Flt_Threshold=Flt_Threshold)
 
     PLOT = True
 
     if PLOT :
         plt.title("PPG")
         plt.grid()
-        plt.plot(Array_Time_Long, Array_PPG_Long, label="Raw PPG")
-        plt.plot(Dict_ZeroCross.keys(), Dict_ZeroCross.values(),'ro', label="Peak")
+        plt.plot(Array_Time, Array_PPG,'b', label="Raw PPG ")
+        plt.plot(Array_Time, Array_DiffPPG,'g', label= "Diff PPG")
+        plt.plot(Array_Time, Array_Threshold, 'g.')
+        plt.plot(Array_Time, Array_Zeros,'r.')
+        plt.plot(Dict_ZeroCrossIdx_ZeroCrossAmp.keys(), Dict_ZeroCrossIdx_ZeroCrossAmp.values(), 'ro')
         plt.legend()
         plt.show()
