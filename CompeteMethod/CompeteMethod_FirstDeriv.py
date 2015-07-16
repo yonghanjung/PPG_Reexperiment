@@ -12,6 +12,7 @@ Comment
 import numpy as np
 import matplotlib.pyplot as plt
 from Module.data_call import data_call
+from Module.LowPassFilter import LowPassFilter
 ''' Function or Class '''
 
 
@@ -86,6 +87,8 @@ if __name__ == "__main__":
 
     Array_PPG_Long = data_call(data_name=Str_DataName,data_num=Int_DataNum, wanted_length=0)
     Array_PPG_Long = np.array(Array_PPG_Long)
+    Object_LowPassFilter = LowPassFilter(Array_Signal=Array_PPG_Long, Flt_CutOffFreq=10, Flt_SamplingRate=Flt_SamplingRate)
+    Array_PPG_Long = Object_LowPassFilter.LowPassFilter()
     Array_Time_Long = np.linspace(0,len(Array_PPG_Long)/Flt_SamplingRate,len(Array_PPG_Long))
 
     Array_PPG = Array_PPG_Long[Int_StartSec * Flt_SamplingRate: Int_EndSec*Flt_SamplingRate]
