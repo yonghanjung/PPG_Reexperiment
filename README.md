@@ -15,5 +15,14 @@ Develop real-time algorithm for detecting peaks of PPG.
 - SlopeSumFunction 
   - Conduct Slope sum for enhancing up-slope of PPG, suggested by Jang et al., 2014 
 
+#### CompetitingMethod
+- CompeteteMethod_FirstDeriv
+  - PPG peak detection method based on First Derivative based method, suggested by Li et al., (2010)
+- CompeteteMethod_LCM
+  - PPG peak detection method based on Local Maxima based method, suggested by Domingues et al., (2009)
+- CompeteteMethod_SSF
+  - PPG peak detection method based on Local Maxima based method, suggested by Jang et al., (2014)
+
 #### Execution 
 - Execution.py : Main file 
+
