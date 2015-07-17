@@ -26,9 +26,9 @@ class SSFMethod:
         self.Int_SamplingRate = 75
         self.Flt_InitThreshold =0.7* np.max(self.Array_Signal[:3 * self.Int_SamplingRate])
 
-        Object_SlopeSum = SlopeSumFunction(Array_Signal,self.Int_SSFLength)
+        Object_SlopeSum = SlopeSumFunction(self.Array_Signal,self.Int_SSFLength)
         self.Array_SlopeSumSignal, _ = Object_SlopeSum.Conduct_SSF()
-        self.Array_SlopeSumSignal = np.concatenate([np.zeros(self.Int_SSFLength),self.Array_SlopeSumSignal])
+        
 
     def Determine_PeakorNot(self, PrevAmp, CurAmp, NextAmp):
         if PrevAmp < CurAmp and CurAmp >= NextAmp:
@@ -75,7 +75,6 @@ if __name__ == "__main__":
     Flt_LowCut = 0.5
 
     PLOT = True
-
 
     Array_PPG_Long = data_call(data_name=Str_DataName,data_num=Int_DataNum, wanted_length=0)
     Array_PPG_Long = np.array(Array_PPG_Long)

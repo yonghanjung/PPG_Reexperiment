@@ -30,8 +30,6 @@ class SlopeSumFunction:
             elif val <= 0:
                 Flt_TotalSum += 0.0
 
-        # Flt_TotalSum = np.sum(Array_Difference)
-
         return Flt_TotalSum
 
     def Conduct_SSF(self):
@@ -80,9 +78,8 @@ if __name__ == "__main__":
 
     plt.figure()
     plt.grid()
-    plt.plot(Array_Time,Array_PPG)
+    plt.plot(Array_Time,Array_PPG,'b')
+    plt.plot(Array_Time, Array_SlopeSumSignal,'r')
 
-    plt.figure()
-    plt.grid()
-    plt.plot(Array_Time, Array_SlopeSumSignal)
+
     plt.show()
