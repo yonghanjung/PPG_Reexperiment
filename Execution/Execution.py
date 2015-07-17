@@ -77,7 +77,7 @@ class DrMPPGAnalysis:
 
         Flt_Se = float(Int_TP) / float(Int_TP + Int_FN)
         Flt_PP = float(Int_TP) / float(Int_TP + Int_FP)
-        return Flt_Se, Flt_PP
+        return self.Str_DataName, self.Int_DataNum, Flt_Se, Flt_PP
 
 
     def Determine_PeakorNot(self, PrevAmp, CurAmp, NextAmp):
@@ -107,7 +107,7 @@ class DrMPPGAnalysis:
         Int_LMSFilterLength = 10
         Int_SSFBufferLength = 10
         Int_BufferPeakFinding = 10
-        Int_IdxBuffer = 10
+        Int_IdxBuffer = 30
         list_PeakIdx = list()
         Dict_PeakTimeLoc_PeakAmp = dict()
 
@@ -263,13 +263,13 @@ class DrMPPGAnalysis:
 
 
 if __name__ == "__main__":
-    # Str_DataName = "PPG_Walk"
-    Str_DataName = "PPG_KW_long" ## SUPER CLEAN
+    Str_DataName = "PPG_Walk"
+    # Str_DataName = "PPG_KW_long" ## SUPER CLEAN
     List_DataNum = [1,2,3,4,5,6,7]
     List_MAData = [2,4,6]
     List_Clean = [1,3,5,7]
     List_KW = [0,1,2]
-    Int_DataNum = 2
+    Int_DataNum = 7
     # 1 : Moderately Clean, little corrupted
     # 2 : MA Super corrupted
     # 3 : Super Clean
@@ -289,7 +289,8 @@ if __name__ == "__main__":
 
     # Mode = "Practice"
     Mode = "Real"
-    Experiment = False
+    # Experiment = False
+    Experiment = True
     if Experiment:
         if Mode == "Practice":
             Array_PPGSample = Array_PPG[StartIdx:StartIdx+3*75]
@@ -345,5 +346,5 @@ if __name__ == "__main__":
             plt.plot(Array_Time, Array_PPG,'b', label="Raw PPG Signal")
             plt.plot(Dict_PeakTimeLoc_PeakAmp.keys(), Dict_PeakTimeLoc_PeakAmp.values(),'ro', label="Peak")
             plt.legend()
-            # plt.show()
+            plt.show()
 
