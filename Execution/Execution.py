@@ -37,8 +37,7 @@ class DrMPPGAnalysis:
         Int_End = 43
         Int_CutTime = 60
         self.Array_PPG_Long = self.Array_PPG_Long[: int(self.FltSamplingRate) * Int_CutTime]
-        self.Array_PPG_Long = self.BandPassFilter(Array_Signal=self.Array_PPG_Long)
-        # self.Array_PPG_Long = self.BandPassFilter(self.Array_PPG_Long)
+        # self.Array_PPG_Long = self.BandPassFilter(Array_Signal=self.Array_PPG_Long)
         self.Array_TimeDomain_Long = self.Array_TimeDomain_Long[:int(self.FltSamplingRate) * Int_CutTime]
         self.Array_PPG = self.Array_PPG_Long[ Int_Start *int(self.FltSamplingRate)   :Int_End * int(self.FltSamplingRate)]
         self.Array_TimeDomain = self.Array_TimeDomain_Long[Int_Start *int(self.FltSamplingRate)   :Int_End * int(self.FltSamplingRate)]
@@ -72,7 +71,8 @@ class DrMPPGAnalysis:
         Int_LMSFilterLength = 10
         Int_SSFBufferLength = 10
         Int_BufferPeakFinding = 10
-        Int_IdxBuffer = 20
+        Int_IdxBuffer = 30
+        list_PeakIdx = list()
         Dict_PeakTimeLoc_PeakAmp = dict()
 
         for IntIdx in range(Int_TotalSignalLength - Int_3secSignalLength):
@@ -90,14 +90,15 @@ class DrMPPGAnalysis:
                 Array_MARBlockSignal = self.Removing_MotionArtifact(Int_FilterLength=Int_LMSFilterLength, Array_Signal=Array_HammingBlockSignal)
                 Array_MARBlockSignal = np.concatenate([np.zeros(Int_LMSFilterLength-1), Array_MARBlockSignal])
                 Array_SSFBlockSignal, Flt_Threshold = self.Computing_SSF(Array_MARBlockSignal, Int_SSFBufferLength)
-                Array_SSFBlockSignal = np.concatenate([np.zeros(Int_SSFBufferLength), Array_SSFBlockSignal])
                 Dict_Loc_ThresholdAmp, Dict_MaxLoc_MaxAmp = self.AdaptiveThreshold(Array_Signal=Array_SSFBlockSignal, Flt_AmpThreshold=Flt_Threshold)
                 # print IntIdx, Int_IdxTarget, Flt_IdxTarget, Dict_MaxLoc_MaxAmp.keys()
                 if self.Determine_PeakFindingBuffer(Int_PeakIdx=Int_IdxTarget, Int_PeakFindingBuffer=Int_BufferPeakFinding, List_PeakCand=Dict_MaxLoc_MaxAmp.keys()) == True:
                     print "PEAK!", IntIdx, Int_IdxTarget, Flt_IdxTarget, Dict_MaxLoc_MaxAmp.keys()
                     Idx_ModifiedIdx, Flt_NewIdxTarget = self.PeakArrangeMent(Array_BlockSignal = Array_BlockSignal, Array_BlockTime=Array_BlockTime, Int_IdxTarget=Int_IdxTarget, Int_IdxBuffer=Int_IdxBuffer)
                     Dict_PeakTimeLoc_PeakAmp[Flt_NewIdxTarget] = Array_BlockSignal[Idx_ModifiedIdx]
-        return Dict_PeakTimeLoc_PeakAmp
+                    Int_OrigIdx = IntIdx + Idx_ModifiedIdx
+                    list_PeakIdx.append(Int_OrigIdx)
+        return Dict_PeakTimeLoc_PeakAmp, list_PeakIdx
 
     def BandPassFilter(self, Array_Signal):
         self.Flt_LowCut = 0.5
@@ -166,13 +167,51 @@ class DrMPPGAnalysis:
         return Dict_Loc_ThresholdAmp, Dict_MaxLoc_MaxAmp
 
     def PeakArrangeMent(self, Array_BlockTime, Array_BlockSignal, Int_IdxTarget, Int_IdxBuffer):
+        def Determine_Peak(Flt_Prev, Flt_Curr, Flt_Next):
+            if Flt_Prev < Flt_Curr and Flt_Curr >= Flt_Next:
+                return True
+            else:
+                return False
+
+        def Find_Peak(Array_SignalSmallWindow):
+            # OUTPUT : ONLY a PEAK
+            Array_OrigArray = np.copy(Array_SignalSmallWindow)
+            while 1 :
+                Int_ArgMaxIdx = np.argmax(Array_SignalSmallWindow)
+                Flt_Prev = Array_SignalSmallWindow[Int_ArgMaxIdx-1]
+                Flt_Curr = Array_SignalSmallWindow[Int_ArgMaxIdx]
+                Flt_Next = Array_SignalSmallWindow[Int_ArgMaxIdx+1]
+                MaxVal = Array_SignalSmallWindow[Int_ArgMaxIdx]
+                if Determine_Peak(Flt_Prev=Flt_Prev,Flt_Curr=Flt_Curr, Flt_Next= Flt_Next):
+                    # print np.argwhere(Array_OrigArray == MaxVal)[0]
+                    return int(np.squeeze(np.argwhere(Array_OrigArray == MaxVal)[0]))
+                else:
+                    Array_SignalSmallWindow = np.delete(Array_SignalSmallWindow, Int_ArgMaxIdx)
+                    continue
+            # Int_SmallWindowLength = len(Array_SignalSmallWindow)
+            # Array_SmallPeakIdx = list()
+            # for Idx in range(1,Int_SmallWindowLength-1):
+            #     Flt_Prev = Array_SignalSmallWindow[Idx-1]
+            #     Flt_Curr = Array_SignalSmallWindow[Idx]
+            #     Flt_Next = Array_SignalSmallWindow[Idx+1]
+            #     if Determine_Peak(Flt_Prev=Flt_Prev, Flt_Curr=Flt_Curr, Flt_Next=Flt_Next):
+            #         Array_SmallPeakIdx.append(Idx)
+            # Array_SmallPeakIdx = np.array(Array_SmallPeakIdx)
+            # return Array_SmallPeakIdx
+
         # Among keys in Dict_PeakTimeLoc_PeakAmp, Arrange key to the most appropriate one
         Array_BlockSignal = np.array(Array_BlockSignal)
         Array_IdxTarget_Buffer = np.array(range(Int_IdxTarget - Int_IdxBuffer, Int_IdxTarget + Int_IdxBuffer))
+        Array_SmallPeakLoc = Find_Peak(Array_BlockSignal[Array_IdxTarget_Buffer])
         Idx_ModifiedIdx = np.argmax(Array_BlockSignal[Array_IdxTarget_Buffer])
+        Array_Temp = np.copy(Array_BlockSignal[Array_IdxTarget_Buffer])
+        Idx_ModifiedIdx2 = Find_Peak(Array_Temp)
+        # print Idx_ModifiedIdx, Idx_ModifiedIdx2
         Int_NewModifiedIdx = Array_IdxTarget_Buffer[Idx_ModifiedIdx]
-        Flt_NewIdxTarget = Array_BlockTime[Int_NewModifiedIdx]
-        return Int_NewModifiedIdx, Flt_NewIdxTarget
+        Int_NewModifiedIdx2 = Array_IdxTarget_Buffer[Idx_ModifiedIdx2]
+        # print Array_IdxTarget_Buffer[Idx_ModifiedIdx],Array_IdxTarget_Buffer[Idx_ModifiedIdx2]
+        Flt_NewIdxTarget = Array_BlockTime[Int_NewModifiedIdx2]
+        return Int_NewModifiedIdx2, Flt_NewIdxTarget
 
 
 
@@ -188,7 +227,7 @@ if __name__ == "__main__":
     List_MAData = [2,4,6]
     List_Clean = [1,3,5,7]
     List_KW = [0,1,2]
-    Int_DataNum = 7
+    Int_DataNum = 1
     # 1 : Moderately Clean, little corrupted
     # 2 : MA Super corrupted
     # 3 : Super Clean
@@ -201,6 +240,7 @@ if __name__ == "__main__":
     Int_SSFLength = 10
     Object_DrMPPG = DrMPPGAnalysis(Str_DataName=Str_DataName, Int_DataNum=Int_DataNum)
     Array_PPG =Object_DrMPPG.Array_PPG_Long
+    Array_PPG = np.array(Array_PPG)
     Array_Time = Object_DrMPPG.Array_TimeDomain_Long
     StartIdx = int(75 * (9.33-1.5))
 
@@ -214,7 +254,6 @@ if __name__ == "__main__":
         Array_MARemovalSample = Object_DrMPPG.Removing_MotionArtifact(Int_FilterLength=Int_FilterLength, Array_Signal=Array_HammingSample)
         Array_MARemovalSample = np.concatenate([np.zeros(Int_FilterLength-1), Array_MARemovalSample])
         Array_SSFSample, Flt_Threshold = Object_DrMPPG.Computing_SSF(Array_Signal=Array_MARemovalSample, INt_SSF_FilterLength=Int_SSFLength)
-        Array_SSFSample = np.concatenate([np.zeros(Int_SSFLength), Array_SSFSample])
         Dict_Loc_ThresholdAmp, Dict_MaxLoc_MaxAmp = Object_DrMPPG.AdaptiveThreshold(Array_Signal=Array_SSFSample, Flt_AmpThreshold=Flt_Threshold)
 
         Int_TargetIdx = 3*75/2 + 1
@@ -237,15 +276,24 @@ if __name__ == "__main__":
         plt.show()
 
     elif Mode == "Real":
-        Dict_PeakTimeLoc_PeakAmp = Object_DrMPPG.Execution()
+        Dict_PeakTimeLoc_PeakAmp, list_PeakIdx = Object_DrMPPG.Execution()
+        for val in list_PeakIdx:
+            print val
         # for idx, key in enumerate(sorted(Dict_PeakTimeLoc_PeakAmp)):
         #     print key, Dict_PeakTimeLoc_PeakAmp[key]
+
+        # plt.figure()
+        # plt.title("Peak Finding SigNum : "+ str(Int_DataNum))
+        # plt.grid()
+        # plt.plot(Array_Time, Array_PPG,'bo')
+        # plt.plot(Dict_PeakTimeLoc_PeakAmp.keys(), Dict_PeakTimeLoc_PeakAmp.values(),'ro')
 
         plt.figure()
         plt.title("Peak Finding SigNum : "+ str(Int_DataNum))
         plt.grid()
-        plt.plot(Array_Time, Array_PPG,'bo')
-        plt.plot(Dict_PeakTimeLoc_PeakAmp.keys(), Dict_PeakTimeLoc_PeakAmp.values(),'ro')
+        plt.plot(Array_PPG,'b')
+        plt.plot(list_PeakIdx, Array_PPG[list_PeakIdx],'ro')
+
 
         plt.figure()
         plt.title("Peak Finding SigNum : "+ str(Int_DataNum))

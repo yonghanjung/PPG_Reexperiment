@@ -28,7 +28,7 @@ class SSFMethod:
 
         Object_SlopeSum = SlopeSumFunction(self.Array_Signal,self.Int_SSFLength)
         self.Array_SlopeSumSignal, _ = Object_SlopeSum.Conduct_SSF()
-        
+
 
     def Determine_PeakorNot(self, PrevAmp, CurAmp, NextAmp):
         if PrevAmp < CurAmp and CurAmp >= NextAmp:
