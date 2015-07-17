@@ -26,8 +26,8 @@
       <file leaf-file-name="Execution.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Execution/Execution.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7010309" vertical-offset="3908" max-vertical-offset="6220">
-              <caret line="209" column="19" selection-start-line="209" selection-start-column="19" selection-end-line="209" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.53150684" vertical-offset="4955" max-vertical-offset="6745">
+              <caret line="271" column="19" selection-start-line="271" selection-start-column="19" selection-end-line="271" selection-end-column="19" />
               <folding>
                 <element signature="e#116#134#0" expanded="true" />
               </folding>
@@ -35,11 +35,91 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="PPG_Walk1_Anno.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Data/PPG_Walk1_Anno.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1017" max-vertical-offset="1395">
+              <caret line="87" column="4" selection-start-line="87" selection-start-column="4" selection-end-line="87" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PPG_Walk2_Anno.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Data/PPG_Walk2_Anno.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="702" max-vertical-offset="1080">
+              <caret line="66" column="4" selection-start-line="66" selection-start-column="4" selection-end-line="66" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PPG_Walk3_Anno.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Data/PPG_Walk3_Anno.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="567" max-vertical-offset="945">
+              <caret line="57" column="4" selection-start-line="57" selection-start-column="4" selection-end-line="57" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PPG_Walk5_Anno.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Data/PPG_Walk5_Anno.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="882" max-vertical-offset="1260">
+              <caret line="78" column="4" selection-start-line="78" selection-start-column="4" selection-end-line="78" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PPG_Walk4_Anno.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Data/PPG_Walk4_Anno.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1062" max-vertical-offset="1440">
+              <caret line="90" column="4" selection-start-line="90" selection-start-column="4" selection-end-line="90" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PPG_Walk6_Anno.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Data/PPG_Walk6_Anno.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1017" max-vertical-offset="1395">
+              <caret line="87" column="4" selection-start-line="87" selection-start-column="4" selection-end-line="87" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="PPG_Walk7_Anno.txt" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Data/PPG_Walk7_Anno.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2569" max-vertical-offset="3102">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1032" max-vertical-offset="1410">
               <caret line="88" column="4" selection-start-line="88" selection-start-column="4" selection-end-line="88" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestLoad.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/HoldInAnyCase/TestLoad.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="195">
+              <caret line="6" column="15" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="2_Anno.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Data/2_Anno.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="642" max-vertical-offset="1020">
+              <caret line="62" column="4" selection-start-line="62" selection-start-column="4" selection-end-line="62" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -77,16 +157,17 @@
         <option value="$PROJECT_DIR$/CompeteMethod/CompeteMethod_SSF.py" />
         <option value="$PROJECT_DIR$/CompeteMethod/CompeteMethod_LCM.py" />
         <option value="$PROJECT_DIR$/Module/AdaptiveThreshold.py" />
+        <option value="$PROJECT_DIR$/Data/PPG_Walk2_Anno.txt" />
+        <option value="$PROJECT_DIR$/Data/PPG_Walk7_Anno.txt" />
         <option value="$PROJECT_DIR$/Data/0_Anno.txt" />
         <option value="$PROJECT_DIR$/Data/1_Anno.txt" />
         <option value="$PROJECT_DIR$/Data/2_Anno.txt" />
+        <option value="$PROJECT_DIR$/HoldInAnyCase/TestLoad.py" />
         <option value="$PROJECT_DIR$/Data/PPG_Walk1_Anno.txt" />
-        <option value="$PROJECT_DIR$/Data/PPG_Walk2_Anno.txt" />
         <option value="$PROJECT_DIR$/Data/PPG_Walk3_Anno.txt" />
-        <option value="$PROJECT_DIR$/Data/PPG_Walk4_Anno.txt" />
         <option value="$PROJECT_DIR$/Data/PPG_Walk5_Anno.txt" />
+        <option value="$PROJECT_DIR$/Data/PPG_Walk4_Anno.txt" />
         <option value="$PROJECT_DIR$/Data/PPG_Walk6_Anno.txt" />
-        <option value="$PROJECT_DIR$/Data/PPG_Walk7_Anno.txt" />
         <option value="$PROJECT_DIR$/Execution/Execution.py" />
       </list>
     </option>
@@ -275,24 +356,6 @@
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
-    <configuration default="false" name="FDPractice" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/HoldInAnyCase" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="PPG_Reexperiment" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/HoldInAnyCase/FDPractice.py" />
-      <option name="PARAMETERS" value="" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
     <configuration default="false" name="CompeteMethod_SSF" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -324,6 +387,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="PPG_Reexperiment" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Module/SlopeSumFunction.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestLoad" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/HoldInAnyCase" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="PPG_Reexperiment" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/HoldInAnyCase/TestLoad.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
@@ -453,17 +534,17 @@
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.Execution" />
       <item index="1" class="java.lang.String" itemvalue="Python.CompeteMethod_FirstDeriv" />
-      <item index="2" class="java.lang.String" itemvalue="Python.FDPractice" />
-      <item index="3" class="java.lang.String" itemvalue="Python.CompeteMethod_SSF" />
-      <item index="4" class="java.lang.String" itemvalue="Python.SlopeSumFunction" />
+      <item index="2" class="java.lang.String" itemvalue="Python.CompeteMethod_SSF" />
+      <item index="3" class="java.lang.String" itemvalue="Python.SlopeSumFunction" />
+      <item index="4" class="java.lang.String" itemvalue="Python.TestLoad" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.Execution" />
-        <item index="1" class="java.lang.String" itemvalue="Python.CompeteMethod_SSF" />
-        <item index="2" class="java.lang.String" itemvalue="Python.SlopeSumFunction" />
-        <item index="3" class="java.lang.String" itemvalue="Python.CompeteMethod_FirstDeriv" />
-        <item index="4" class="java.lang.String" itemvalue="Python.FDPractice" />
+        <item index="1" class="java.lang.String" itemvalue="Python.TestLoad" />
+        <item index="2" class="java.lang.String" itemvalue="Python.CompeteMethod_SSF" />
+        <item index="3" class="java.lang.String" itemvalue="Python.SlopeSumFunction" />
+        <item index="4" class="java.lang.String" itemvalue="Python.CompeteMethod_FirstDeriv" />
       </list>
     </recent_temporary>
   </component>
@@ -491,7 +572,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31687897" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31687897" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -717,89 +798,105 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Module/data_call.py">
+    <entry file="file://$PROJECT_DIR$/Data/0.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.4962593" vertical-offset="660" max-vertical-offset="1575">
-          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="388">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/2_Anno.txt">
+    <entry file="file://$PROJECT_DIR$/Module/data_call.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.59850377" vertical-offset="1128" max-vertical-offset="1656">
-          <caret line="57" column="4" selection-start-line="57" selection-start-column="4" selection-end-line="57" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2100">
+          <caret line="54" column="60" selection-start-line="54" selection-start-column="15" selection-end-line="54" selection-end-column="60" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Data/0_Anno.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.842893" vertical-offset="0" max-vertical-offset="1335">
-          <caret line="76" column="4" selection-start-line="76" selection-start-column="4" selection-end-line="76" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="919" max-vertical-offset="1320">
+          <caret line="82" column="4" selection-start-line="82" selection-start-column="4" selection-end-line="82" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Data/1_Anno.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.59850377" vertical-offset="0" max-vertical-offset="1400">
-          <caret line="12" column="3" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="3" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="634" max-vertical-offset="1035">
+          <caret line="63" column="4" selection-start-line="63" selection-start-column="4" selection-end-line="63" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/2_Anno.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="642" max-vertical-offset="1020">
+          <caret line="62" column="4" selection-start-line="62" selection-start-column="4" selection-end-line="62" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HoldInAnyCase/TestLoad.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="195">
+          <caret line="6" column="15" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Data/PPG_Walk1_Anno.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.2319202" vertical-offset="0" max-vertical-offset="2538">
-          <caret line="48" column="4" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data/PPG_Walk3_Anno.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2618454" vertical-offset="319" max-vertical-offset="960">
-          <caret line="55" column="4" selection-start-line="55" selection-start-column="4" selection-end-line="55" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1017" max-vertical-offset="1395">
+          <caret line="87" column="4" selection-start-line="87" selection-start-column="4" selection-end-line="87" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Data/PPG_Walk2_Anno.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8229426" vertical-offset="615" max-vertical-offset="1080">
-          <caret line="63" column="4" selection-start-line="63" selection-start-column="4" selection-end-line="63" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="702" max-vertical-offset="1080">
+          <caret line="66" column="4" selection-start-line="66" selection-start-column="4" selection-end-line="66" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/PPG_Walk4_Anno.txt">
+    <entry file="file://$PROJECT_DIR$/Data/PPG_Walk3_Anno.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.82793015" vertical-offset="1692" max-vertical-offset="2231">
-          <caret line="88" column="4" selection-start-line="88" selection-start-column="4" selection-end-line="88" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="567" max-vertical-offset="945">
+          <caret line="57" column="4" selection-start-line="57" selection-start-column="4" selection-end-line="57" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Data/PPG_Walk5_Anno.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.680798" vertical-offset="2223" max-vertical-offset="2720">
+        <state vertical-scroll-proportion="0.0" vertical-offset="882" max-vertical-offset="1260">
           <caret line="78" column="4" selection-start-line="78" selection-start-column="4" selection-end-line="78" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data/PPG_Walk4_Anno.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1062" max-vertical-offset="1440">
+          <caret line="90" column="4" selection-start-line="90" selection-start-column="4" selection-end-line="90" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Data/PPG_Walk6_Anno.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5087282" vertical-offset="0" max-vertical-offset="1598">
-          <caret line="12" column="3" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="3" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1017" max-vertical-offset="1395">
+          <caret line="87" column="4" selection-start-line="87" selection-start-column="4" selection-end-line="87" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Data/PPG_Walk7_Anno.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2569" max-vertical-offset="3102">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1032" max-vertical-offset="1410">
           <caret line="88" column="4" selection-start-line="88" selection-start-column="4" selection-end-line="88" selection-end-column="4" />
           <folding />
         </state>
@@ -807,8 +904,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Execution/Execution.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7010309" vertical-offset="3908" max-vertical-offset="6220">
-          <caret line="209" column="19" selection-start-line="209" selection-start-column="19" selection-end-line="209" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.53150684" vertical-offset="4955" max-vertical-offset="6745">
+          <caret line="271" column="19" selection-start-line="271" selection-start-column="19" selection-end-line="271" selection-end-column="19" />
           <folding>
             <element signature="e#116#134#0" expanded="true" />
           </folding>

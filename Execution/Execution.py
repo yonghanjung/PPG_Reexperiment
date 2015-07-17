@@ -10,8 +10,6 @@ Comment
 
 ''' Library '''
 import numpy as np
-import scipy as sp
-import pandas as pd
 from Module.data_call import data_call
 from Module.bandpass import BandPassFilter
 from Module.AdaptiveThreshold import AdaptiveThreshold
@@ -44,6 +42,44 @@ class DrMPPGAnalysis:
 
         #####################
     # Target is a peak or not
+    def Check_Result(self):
+        _, List_PeakIdx = self.Execution()
+        Array_MyAnswer = np.array(List_PeakIdx)
+        Array_MyAnswer = np.unique(Array_MyAnswer)
+        if self.Str_DataName == "PPG_KW_long":
+            Str_AnnoName = "../Data/" + str(self.Int_DataNum) + "_Anno.txt"
+            List_Anno = file(Str_AnnoName,'r').read()
+            List_Anno = List_Anno.split("\n")
+            List_Anno = [int(x) for x in List_Anno]
+            Array_Anno = np.array(List_Anno)
+            Array_Anno = np.unique(Array_Anno)
+        elif self.Str_DataName == "PPG_Walk":
+            Str_AnnoName = "../Data/" + self.Str_DataName + str(self.Int_DataNum)+ "_Anno.txt"
+            List_Anno = file(Str_AnnoName,'r').read()
+            List_Anno = List_Anno.split("\n")
+            List_Anno = [int(x) for x in List_Anno]
+            Array_Anno = np.array(List_Anno)
+            Array_Anno = np.unique(Array_Anno)
+
+        Int_TP = 0
+        Int_FP = 0
+        Int_FN = 0
+
+        for myanswer in Array_MyAnswer:
+            if myanswer in Array_Anno:
+                Int_TP += 1
+            elif myanswer not in Array_Anno:
+                Int_FP += 1
+
+        for trueanswer in Array_Anno:
+            if trueanswer not in Array_MyAnswer:
+                Int_FN += 1
+
+        Flt_Se = float(Int_TP) / float(Int_TP + Int_FN)
+        Flt_PP = float(Int_TP) / float(Int_TP + Int_FP)
+        return Flt_Se, Flt_PP
+
+
     def Determine_PeakorNot(self, PrevAmp, CurAmp, NextAmp):
         if PrevAmp < CurAmp and CurAmp >= NextAmp:
             return True
@@ -71,7 +107,7 @@ class DrMPPGAnalysis:
         Int_LMSFilterLength = 10
         Int_SSFBufferLength = 10
         Int_BufferPeakFinding = 10
-        Int_IdxBuffer = 30
+        Int_IdxBuffer = 10
         list_PeakIdx = list()
         Dict_PeakTimeLoc_PeakAmp = dict()
 
@@ -178,16 +214,22 @@ class DrMPPGAnalysis:
             Array_OrigArray = np.copy(Array_SignalSmallWindow)
             while 1 :
                 Int_ArgMaxIdx = np.argmax(Array_SignalSmallWindow)
-                Flt_Prev = Array_SignalSmallWindow[Int_ArgMaxIdx-1]
-                Flt_Curr = Array_SignalSmallWindow[Int_ArgMaxIdx]
-                Flt_Next = Array_SignalSmallWindow[Int_ArgMaxIdx+1]
-                MaxVal = Array_SignalSmallWindow[Int_ArgMaxIdx]
-                if Determine_Peak(Flt_Prev=Flt_Prev,Flt_Curr=Flt_Curr, Flt_Next= Flt_Next):
-                    # print np.argwhere(Array_OrigArray == MaxVal)[0]
+                try:
+                    Flt_Prev = Array_SignalSmallWindow[Int_ArgMaxIdx-1]
+                    Flt_Curr = Array_SignalSmallWindow[Int_ArgMaxIdx]
+                    Flt_Next = Array_SignalSmallWindow[Int_ArgMaxIdx+1]
+                    MaxVal = Array_SignalSmallWindow[Int_ArgMaxIdx]
+                    if Determine_Peak(Flt_Prev=Flt_Prev,Flt_Curr=Flt_Curr, Flt_Next= Flt_Next):
+                        # print np.argwhere(Array_OrigArray == MaxVal)[0]
+                        return int(np.squeeze(np.argwhere(Array_OrigArray == MaxVal)[0]))
+                    else:
+                        Array_SignalSmallWindow = np.delete(Array_SignalSmallWindow, Int_ArgMaxIdx)
+                        continue
+                except:
+                    print "ho"
+                    MaxVal = Array_SignalSmallWindow[Int_ArgMaxIdx]
                     return int(np.squeeze(np.argwhere(Array_OrigArray == MaxVal)[0]))
-                else:
-                    Array_SignalSmallWindow = np.delete(Array_SignalSmallWindow, Int_ArgMaxIdx)
-                    continue
+
             # Int_SmallWindowLength = len(Array_SignalSmallWindow)
             # Array_SmallPeakIdx = list()
             # for Idx in range(1,Int_SmallWindowLength-1):
@@ -221,13 +263,13 @@ class DrMPPGAnalysis:
 
 
 if __name__ == "__main__":
-    Str_DataName = "PPG_Walk"
-    # Str_DataName = "PPG_KW_long" ## SUPER CLEAN
+    # Str_DataName = "PPG_Walk"
+    Str_DataName = "PPG_KW_long" ## SUPER CLEAN
     List_DataNum = [1,2,3,4,5,6,7]
     List_MAData = [2,4,6]
     List_Clean = [1,3,5,7]
     List_KW = [0,1,2]
-    Int_DataNum = 1
+    Int_DataNum = 2
     # 1 : Moderately Clean, little corrupted
     # 2 : MA Super corrupted
     # 3 : Super Clean
@@ -239,6 +281,7 @@ if __name__ == "__main__":
     Int_FilterLength = 10
     Int_SSFLength = 10
     Object_DrMPPG = DrMPPGAnalysis(Str_DataName=Str_DataName, Int_DataNum=Int_DataNum)
+    print Object_DrMPPG.Check_Result()
     Array_PPG =Object_DrMPPG.Array_PPG_Long
     Array_PPG = np.array(Array_PPG)
     Array_Time = Object_DrMPPG.Array_TimeDomain_Long
@@ -246,60 +289,61 @@ if __name__ == "__main__":
 
     # Mode = "Practice"
     Mode = "Real"
+    Experiment = False
+    if Experiment:
+        if Mode == "Practice":
+            Array_PPGSample = Array_PPG[StartIdx:StartIdx+3*75]
+            Array_TimeSample = Array_Time[StartIdx:StartIdx+ 3*75]
+            Array_HammingSample = Object_DrMPPG.Block_Signal(Array_PPGSample)
+            Array_MARemovalSample = Object_DrMPPG.Removing_MotionArtifact(Int_FilterLength=Int_FilterLength, Array_Signal=Array_HammingSample)
+            Array_MARemovalSample = np.concatenate([np.zeros(Int_FilterLength-1), Array_MARemovalSample])
+            Array_SSFSample, Flt_Threshold = Object_DrMPPG.Computing_SSF(Array_Signal=Array_MARemovalSample, INt_SSF_FilterLength=Int_SSFLength)
+            Dict_Loc_ThresholdAmp, Dict_MaxLoc_MaxAmp = Object_DrMPPG.AdaptiveThreshold(Array_Signal=Array_SSFSample, Flt_AmpThreshold=Flt_Threshold)
 
-    if Mode == "Practice":
-        Array_PPGSample = Array_PPG[StartIdx:StartIdx+3*75]
-        Array_TimeSample = Array_Time[StartIdx:StartIdx+ 3*75]
-        Array_HammingSample = Object_DrMPPG.Block_Signal(Array_PPGSample)
-        Array_MARemovalSample = Object_DrMPPG.Removing_MotionArtifact(Int_FilterLength=Int_FilterLength, Array_Signal=Array_HammingSample)
-        Array_MARemovalSample = np.concatenate([np.zeros(Int_FilterLength-1), Array_MARemovalSample])
-        Array_SSFSample, Flt_Threshold = Object_DrMPPG.Computing_SSF(Array_Signal=Array_MARemovalSample, INt_SSF_FilterLength=Int_SSFLength)
-        Dict_Loc_ThresholdAmp, Dict_MaxLoc_MaxAmp = Object_DrMPPG.AdaptiveThreshold(Array_Signal=Array_SSFSample, Flt_AmpThreshold=Flt_Threshold)
+            Int_TargetIdx = 3*75/2 + 1
 
-        Int_TargetIdx = 3*75/2 + 1
+            plt.figure()
+            # Peak retained?
+            plt.title("PPG Example " + str(StartIdx))
+            plt.grid()
+            plt.plot(Array_TimeSample, Array_PPGSample,'b', label="Raw Signal")
+            plt.plot(Array_TimeSample, Array_HammingSample,'g', label="Hamming Signal")
+            plt.plot(Array_TimeSample[Int_TargetIdx], Array_HammingSample[Int_TargetIdx],'go')
+            plt.plot(Array_TimeSample, Array_MARemovalSample,'r', label="MA removed")
+            plt.plot(Array_TimeSample[Int_TargetIdx], Array_MARemovalSample[Int_TargetIdx],'go')
+            plt.plot(Array_TimeSample, Array_SSFSample, 'purple', label="Slope Sum")
+            plt.plot(Array_TimeSample[Dict_Loc_ThresholdAmp.keys()], Dict_Loc_ThresholdAmp.values(),'orange')
+            plt.plot(Array_TimeSample[Dict_MaxLoc_MaxAmp.keys()], Dict_MaxLoc_MaxAmp.values(),'ko')
+            plt.plot(Array_TimeSample[Int_TargetIdx], Array_SSFSample[Int_TargetIdx], 'go', label="Target Point")
+            plt.legend()
 
-        plt.figure()
-        # Peak retained?
-        plt.title("PPG Example " + str(StartIdx))
-        plt.grid()
-        plt.plot(Array_TimeSample, Array_PPGSample,'b', label="Raw Signal")
-        plt.plot(Array_TimeSample, Array_HammingSample,'g', label="Hamming Signal")
-        plt.plot(Array_TimeSample[Int_TargetIdx], Array_HammingSample[Int_TargetIdx],'go')
-        plt.plot(Array_TimeSample, Array_MARemovalSample,'r', label="MA removed")
-        plt.plot(Array_TimeSample[Int_TargetIdx], Array_MARemovalSample[Int_TargetIdx],'go')
-        plt.plot(Array_TimeSample, Array_SSFSample, 'purple', label="Slope Sum")
-        plt.plot(Array_TimeSample[Dict_Loc_ThresholdAmp.keys()], Dict_Loc_ThresholdAmp.values(),'orange')
-        plt.plot(Array_TimeSample[Dict_MaxLoc_MaxAmp.keys()], Dict_MaxLoc_MaxAmp.values(),'ko')
-        plt.plot(Array_TimeSample[Int_TargetIdx], Array_SSFSample[Int_TargetIdx], 'go', label="Target Point")
-        plt.legend()
+            plt.show()
 
-        plt.show()
+        elif Mode == "Real":
+            Dict_PeakTimeLoc_PeakAmp, list_PeakIdx = Object_DrMPPG.Execution()
+            for val in list_PeakIdx:
+                print val
+            # for idx, key in enumerate(sorted(Dict_PeakTimeLoc_PeakAmp)):
+            #     print key, Dict_PeakTimeLoc_PeakAmp[key]
 
-    elif Mode == "Real":
-        Dict_PeakTimeLoc_PeakAmp, list_PeakIdx = Object_DrMPPG.Execution()
-        for val in list_PeakIdx:
-            print val
-        # for idx, key in enumerate(sorted(Dict_PeakTimeLoc_PeakAmp)):
-        #     print key, Dict_PeakTimeLoc_PeakAmp[key]
+            # plt.figure()
+            # plt.title("Peak Finding SigNum : "+ str(Int_DataNum))
+            # plt.grid()
+            # plt.plot(Array_Time, Array_PPG,'bo')
+            # plt.plot(Dict_PeakTimeLoc_PeakAmp.keys(), Dict_PeakTimeLoc_PeakAmp.values(),'ro')
 
-        # plt.figure()
-        # plt.title("Peak Finding SigNum : "+ str(Int_DataNum))
-        # plt.grid()
-        # plt.plot(Array_Time, Array_PPG,'bo')
-        # plt.plot(Dict_PeakTimeLoc_PeakAmp.keys(), Dict_PeakTimeLoc_PeakAmp.values(),'ro')
-
-        plt.figure()
-        plt.title("Peak Finding SigNum : "+ str(Int_DataNum))
-        plt.grid()
-        plt.plot(Array_PPG,'b')
-        plt.plot(list_PeakIdx, Array_PPG[list_PeakIdx],'ro')
+            plt.figure()
+            plt.title("Peak Finding SigNum : "+ str(Int_DataNum))
+            plt.grid()
+            plt.plot(Array_PPG,'b')
+            plt.plot(list_PeakIdx, Array_PPG[list_PeakIdx],'ro')
 
 
-        plt.figure()
-        plt.title("Peak Finding SigNum : "+ str(Int_DataNum))
-        plt.grid()
-        plt.plot(Array_Time, Array_PPG,'b', label="Raw PPG Signal")
-        plt.plot(Dict_PeakTimeLoc_PeakAmp.keys(), Dict_PeakTimeLoc_PeakAmp.values(),'ro', label="Peak")
-        plt.legend()
-        plt.show()
+            plt.figure()
+            plt.title("Peak Finding SigNum : "+ str(Int_DataNum))
+            plt.grid()
+            plt.plot(Array_Time, Array_PPG,'b', label="Raw PPG Signal")
+            plt.plot(Dict_PeakTimeLoc_PeakAmp.keys(), Dict_PeakTimeLoc_PeakAmp.values(),'ro', label="Peak")
+            plt.legend()
+            # plt.show()
 
