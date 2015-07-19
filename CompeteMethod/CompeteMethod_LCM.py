@@ -45,34 +45,27 @@ class LCMMethod:
         Array_MyAnswer = np.array(List_PeakIdx)
         Array_MyAnswer = np.unique(Array_MyAnswer)
         Array_Anno = self.Load_Answer(Str_DataName, Int_DataNum)
-        # # print Array_MyAnswer
-        # if Str_DataName == "PPG_KW_long":
-        #     Str_AnnoName = "../Data/" + str(Int_DataNum) + "_Anno.txt"
-        #     List_Anno = file(Str_AnnoName,'r').read()
-        #     List_Anno = List_Anno.split("\n")
-        #     List_Anno = [int(x) for x in List_Anno]
-        #     Array_Anno = np.array(List_Anno)
-        #     Array_Anno = np.unique(Array_Anno)
-        # elif Str_DataName == "PPG_Walk":
-        #     Str_AnnoName = "../Data/" + Str_DataName + str(Int_DataNum)+ "_Anno.txt"
-        #     List_Anno = file(Str_AnnoName,'r').read()
-        #     List_Anno = List_Anno.split("\n")
-        #     List_Anno = [int(x) for x in List_Anno]
-        #     Array_Anno = np.array(List_Anno)
-        #     Array_Anno = np.unique(Array_Anno)
+
 
         Int_TP = 0
         Int_FP = 0
         Int_FN = 0
 
+        Int_BufferSize = 7
         for myanswer in Array_MyAnswer:
-            if myanswer in Array_Anno:
+            Array_BufferMyAnswer = range(myanswer-Int_BufferSize, myanswer + Int_BufferSize)
+            Array_BufferMyAnswer = np.array(Array_BufferMyAnswer)
+            Array_InorNOT = np.in1d(Array_BufferMyAnswer, Array_Anno)
+            if True in Array_InorNOT:
                 Int_TP += 1
-            elif myanswer not in Array_Anno:
+            elif True not in Array_InorNOT:
                 Int_FP += 1
 
         for trueanswer in Array_Anno:
-            if trueanswer not in Array_MyAnswer:
+            Array_BufferMyAnswer = range(trueanswer - Int_BufferSize, trueanswer + Int_BufferSize)
+            Array_BufferMyAnswer = np.array(Array_BufferMyAnswer)
+            Array_InorNOT = np.in1d(Array_BufferMyAnswer, Array_MyAnswer)
+            if True not in Array_InorNOT:
                 Int_FN += 1
 
         Flt_Se = float(Int_TP) / float(Int_TP + Int_FN)
@@ -119,8 +112,8 @@ class LCMMethod:
 
 if __name__ == "__main__":
     Str_DataName = "PPG_Walk"
-    Str_DataName = 'PPG_KW_long'
-    Int_DataNum = 2
+    # Str_DataName = 'PPG_KW_long'
+    Int_DataNum = 1
     Int_SamplingRate = 75
     Flt_Delta = 1
     Int_OneMinCut = 60*75

@@ -51,8 +51,9 @@ class SlopeSumFunction:
 
 
 if __name__ == "__main__":
-    Str_DataName = "PPG_KW_long"
-    Int_DataNum = 1
+    # Str_DataName = "PPG_KW_long"
+    Str_DataName = "PPG_Walk"
+    Int_DataNum = 2
     Flt_SamplingRate = 75
     Flt_highCut = 11
     Flt_LowCut = 0.5

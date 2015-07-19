@@ -60,43 +60,77 @@ class DrMPPGAnalysis:
             Array_Anno = np.unique(Array_Anno)
         return Array_Anno
 
-
-    def Check_Result(self):
-        _, List_PeakIdx = self.Execution()
+    def Check_Result(self, List_PeakIdx):
+        Str_DataName = self.Str_DataName
+        Int_DataNum = self.Int_DataNum
         Array_MyAnswer = np.array(List_PeakIdx)
         Array_MyAnswer = np.unique(Array_MyAnswer)
-        if self.Str_DataName == "PPG_KW_long":
-            Str_AnnoName = "../Data/" + str(self.Int_DataNum) + "_Anno.txt"
-            List_Anno = file(Str_AnnoName,'r').read()
-            List_Anno = List_Anno.split("\n")
-            List_Anno = [int(x) for x in List_Anno]
-            Array_Anno = np.array(List_Anno)
-            Array_Anno = np.unique(Array_Anno)
-        elif self.Str_DataName == "PPG_Walk":
-            Str_AnnoName = "../Data/" + self.Str_DataName + str(self.Int_DataNum)+ "_Anno.txt"
-            List_Anno = file(Str_AnnoName,'r').read()
-            List_Anno = List_Anno.split("\n")
-            List_Anno = [int(x) for x in List_Anno]
-            Array_Anno = np.array(List_Anno)
-            Array_Anno = np.unique(Array_Anno)
+        Array_Anno = self.Load_Answer()
+
 
         Int_TP = 0
         Int_FP = 0
         Int_FN = 0
 
+        Int_BufferSize = 7
         for myanswer in Array_MyAnswer:
-            if myanswer in Array_Anno:
+            Array_BufferMyAnswer = range(myanswer-Int_BufferSize, myanswer + Int_BufferSize)
+            Array_BufferMyAnswer = np.array(Array_BufferMyAnswer)
+            Array_InorNOT = np.in1d(Array_BufferMyAnswer, Array_Anno)
+            if True in Array_InorNOT:
                 Int_TP += 1
-            elif myanswer not in Array_Anno:
+            elif True not in Array_InorNOT:
                 Int_FP += 1
 
         for trueanswer in Array_Anno:
-            if trueanswer not in Array_MyAnswer:
+            Array_BufferMyAnswer = range(trueanswer - Int_BufferSize, trueanswer + Int_BufferSize)
+            Array_BufferMyAnswer = np.array(Array_BufferMyAnswer)
+            Array_InorNOT = np.in1d(Array_BufferMyAnswer, Array_MyAnswer)
+            if True not in Array_InorNOT:
                 Int_FN += 1
 
         Flt_Se = float(Int_TP) / float(Int_TP + Int_FN)
         Flt_PP = float(Int_TP) / float(Int_TP + Int_FP)
-        return self.Str_DataName, self.Int_DataNum, Flt_Se, Flt_PP
+        return Str_DataName, Int_DataNum, Flt_Se, Flt_PP
+
+
+    # def Check_Result(self, List_PeakIdx):
+    #     # _, List_PeakIdx = self.Execution()
+    #     Int_BufferSize = 7
+    #     Array_MyAnswer = np.array(List_PeakIdx)
+    #     Array_MyAnswer = np.unique(Array_MyAnswer)
+    #     if self.Str_DataName == "PPG_KW_long":
+    #         Str_AnnoName = "../Data/" + str(self.Int_DataNum) + "_Anno.txt"
+    #         List_Anno = file(Str_AnnoName,'r').read()
+    #         List_Anno = List_Anno.split("\n")
+    #         List_Anno = [int(x) for x in List_Anno]
+    #         Array_Anno = np.array(List_Anno)
+    #         Array_Anno = np.unique(Array_Anno)
+    #     elif self.Str_DataName == "PPG_Walk":
+    #         Str_AnnoName = "../Data/" + self.Str_DataName + str(self.Int_DataNum)+ "_Anno.txt"
+    #         List_Anno = file(Str_AnnoName,'r').read()
+    #         List_Anno = List_Anno.split("\n")
+    #         List_Anno = [int(x) for x in List_Anno]
+    #         Array_Anno = np.array(List_Anno)
+    #         Array_Anno = np.unique(Array_Anno)
+    #
+    #     Int_TP = 0
+    #     Int_FP = 0
+    #     Int_FN = 0
+    #
+    #     for myanswer in Array_MyAnswer:
+    #         if myanswer in Array_Anno:
+    #             Int_TP += 1
+    #         elif myanswer not in Array_Anno:
+    #             Int_FP += 1
+    #
+    #     for trueanswer in Array_Anno:
+    #         if trueanswer not in Array_MyAnswer:
+    #             Int_FN += 1
+    #
+    #     Flt_Se = float(Int_TP) / float(Int_TP + Int_FN)
+    #     Flt_PP = float(Int_TP) / float(Int_TP + Int_FP)
+    #     return self.Str_DataName, self.Int_DataNum, Flt_Se, Flt_PP
 
 
     def Determine_PeakorNot(self, PrevAmp, CurAmp, NextAmp):
@@ -290,7 +324,7 @@ if __name__ == "__main__":
     List_KW = [0,1,2]
     List_WeakMA = [1,5,7]
 
-    Int_DataNum = 7
+    Int_DataNum = 6
     Int_Buffer = 19
     # 1 : Moderately Clean, little corrupted
     # 2 : MA Super corrupted
@@ -314,8 +348,8 @@ if __name__ == "__main__":
 
 
     # Mode = "Practice"
-    # Mode = "Real"
-    Mode = "Annotation Check"
+    Mode = "Real"
+    # Mode = "Annotation Check"
     # Experiment = False
     Experiment = True
     if Experiment:
@@ -352,7 +386,7 @@ if __name__ == "__main__":
             Dict_PeakTimeLoc_PeakAmp, list_PeakIdx = Object_DrMPPG.Execution()
             # for val in list_PeakIdx:
             #     print val
-            print Object_DrMPPG.Check_Result()
+            print Object_DrMPPG.Check_Result(list_PeakIdx)
             # for idx, key in enumerate(sorted(Dict_PeakTimeLoc_PeakAmp)):
             #     print key, Dict_PeakTimeLoc_PeakAmp[key]
 
