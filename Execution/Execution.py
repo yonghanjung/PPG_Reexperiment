@@ -23,10 +23,11 @@ import matplotlib.pyplot as plt
 ''' Function or Class '''
 
 class DrMPPGAnalysis:
-    def __init__(self, Str_DataName, Int_DataNum, ):
+    def __init__(self, Str_DataName, Int_DataNum,Int_Buffer ):
         self.FltSamplingRate = 75.0
         self.Str_DataName = Str_DataName
         self.Int_DataNum = Int_DataNum
+        self.Int_Buffer = Int_Buffer
         self.Array_PPG_Long = data_call(data_name=self.Str_DataName,data_num=self.Int_DataNum, wanted_length=0)
         self.Array_TimeDomain_Long = np.linspace(0, len(self.Array_PPG_Long) / self.FltSamplingRate ,len(self.Array_PPG_Long) )
 
@@ -42,6 +43,24 @@ class DrMPPGAnalysis:
 
         #####################
     # Target is a peak or not
+    def Load_Answer(self):
+        if self.Str_DataName == "PPG_KW_long":
+            Str_AnnoName = "../Data/" + str(self.Int_DataNum) + "_Anno.txt"
+            List_Anno = file(Str_AnnoName,'r').read()
+            List_Anno = List_Anno.split("\n")
+            List_Anno = [int(x) for x in List_Anno]
+            Array_Anno = np.array(List_Anno)
+            Array_Anno = np.unique(Array_Anno)
+        elif self.Str_DataName == "PPG_Walk":
+            Str_AnnoName = "../Data/" + self.Str_DataName + str(self.Int_DataNum)+ "_Anno.txt"
+            List_Anno = file(Str_AnnoName,'r').read()
+            List_Anno = List_Anno.split("\n")
+            List_Anno = [int(x) for x in List_Anno]
+            Array_Anno = np.array(List_Anno)
+            Array_Anno = np.unique(Array_Anno)
+        return Array_Anno
+
+
     def Check_Result(self):
         _, List_PeakIdx = self.Execution()
         Array_MyAnswer = np.array(List_PeakIdx)
@@ -107,8 +126,8 @@ class DrMPPGAnalysis:
         Int_LMSFilterLength = 10
         Int_SSFBufferLength = 10
         Int_BufferPeakFinding = 10
-        Int_IdxBuffer = 30
         list_PeakIdx = list()
+        Int_IdxBuffer= self.Int_Buffer
         Dict_PeakTimeLoc_PeakAmp = dict()
 
         for IntIdx in range(Int_TotalSignalLength - Int_3secSignalLength):
@@ -269,7 +288,10 @@ if __name__ == "__main__":
     List_MAData = [2,4,6]
     List_Clean = [1,3,5,7]
     List_KW = [0,1,2]
+    List_WeakMA = [1,5,7]
+
     Int_DataNum = 7
+    Int_Buffer = 19
     # 1 : Moderately Clean, little corrupted
     # 2 : MA Super corrupted
     # 3 : Super Clean
@@ -280,19 +302,25 @@ if __name__ == "__main__":
 
     Int_FilterLength = 10
     Int_SSFLength = 10
-    Object_DrMPPG = DrMPPGAnalysis(Str_DataName=Str_DataName, Int_DataNum=Int_DataNum)
-    print Object_DrMPPG.Check_Result()
+    Object_DrMPPG = DrMPPGAnalysis(Str_DataName=Str_DataName, Int_DataNum=Int_DataNum, Int_Buffer = Int_Buffer)
+
     Array_PPG =Object_DrMPPG.Array_PPG_Long
     Array_PPG = np.array(Array_PPG)
     Array_Time = Object_DrMPPG.Array_TimeDomain_Long
-    StartIdx = int(75 * (9.33-1.5))
+    Array_Anno = Object_DrMPPG.Load_Answer()
+
+
+
+
 
     # Mode = "Practice"
-    Mode = "Real"
+    # Mode = "Real"
+    Mode = "Annotation Check"
     # Experiment = False
     Experiment = True
     if Experiment:
         if Mode == "Practice":
+            StartIdx = int(75 * (9.33-1.5))
             Array_PPGSample = Array_PPG[StartIdx:StartIdx+3*75]
             Array_TimeSample = Array_Time[StartIdx:StartIdx+ 3*75]
             Array_HammingSample = Object_DrMPPG.Block_Signal(Array_PPGSample)
@@ -322,8 +350,9 @@ if __name__ == "__main__":
 
         elif Mode == "Real":
             Dict_PeakTimeLoc_PeakAmp, list_PeakIdx = Object_DrMPPG.Execution()
-            for val in list_PeakIdx:
-                print val
+            # for val in list_PeakIdx:
+            #     print val
+            print Object_DrMPPG.Check_Result()
             # for idx, key in enumerate(sorted(Dict_PeakTimeLoc_PeakAmp)):
             #     print key, Dict_PeakTimeLoc_PeakAmp[key]
 
@@ -346,5 +375,28 @@ if __name__ == "__main__":
             plt.plot(Array_Time, Array_PPG,'b', label="Raw PPG Signal")
             plt.plot(Dict_PeakTimeLoc_PeakAmp.keys(), Dict_PeakTimeLoc_PeakAmp.values(),'ro', label="Peak")
             plt.legend()
+            plt.show()
+
+        elif Mode == "Annotation Check":
+            plt.figure()
+            plt.title("Answer Check " + Str_DataName + " " + str(Int_DataNum))
+            plt.grid()
+            plt.plot(Array_PPG,'b', label="Raw")
+            plt.plot(Array_Anno, Array_PPG[Array_Anno],'ro', label = "Peak")
+            plt.legend()
+
+            plt.figure()
+            plt.title("Answer Check " + Str_DataName + " " + str(Int_DataNum) + " with time")
+            plt.grid()
+            Array_PPGSample = list(Array_PPG[45*75 : 48*75])
+            Array_TimeSample = list(Array_Time[45*75 : 48*75])
+
+            # for time,val in zip(Array_TimeSample, Array_PPGSample):
+            #     print time,val
+
+            plt.plot(Array_Time, Array_PPG,'b', label="Raw")
+            # plt.plot(Array_Time[Array_Anno], Array_PPG[Array_Anno],'ro', label = "Peak")
+            plt.legend()
+
             plt.show()
 

@@ -73,6 +73,9 @@ def data_call(data_name, data_num, wanted_length):
             mydata = mydata[:wanted_length]
         return mydata
 
+    # if data_name == "PPG_MIMIC":
+
+
     if data_name == "ECG_HE":
         mysignal = scipy.io.loadmat("../Data/ECG_HE.mat")
         mysignal = mysignal['ECG_HE']
