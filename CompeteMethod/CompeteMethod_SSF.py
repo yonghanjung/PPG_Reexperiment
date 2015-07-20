@@ -133,7 +133,7 @@ class SSFMethod:
 
 if __name__ == "__main__":
     # Str_DataName = "PPG_KW_long"
-    Str_DataName = "PPG_Walk"
+    # Str_DataName = "PPG_Walk"
     Str_DataName = "PPG_Label"
     Int_DataNum = 2
     Flt_SamplingRate = 125
@@ -141,7 +141,7 @@ if __name__ == "__main__":
     Flt_LowCut = 0.5
     Int_OneMinCut = 60*125
 
-    PLOT = True
+    PLOT = False
 
     Array_PPG_Long = data_call(data_name=Str_DataName,data_num=Int_DataNum, wanted_length=0)
     Array_PPG_Long = np.array(Array_PPG_Long)
@@ -166,4 +166,4 @@ if __name__ == "__main__":
         # plt.plot(Dict_PeakIdxLoc_PeakAmp.keys(), Dict_PeakIdxLoc_PeakAmp.values(),'ro', label="PEAK")
         plt.scatter(Array_Time[List_MaxIdx], Array_PPG[List_MaxIdx], marker='o',c='r', s=80 )
         # plt.legend()
-        plt.show()
+        # plt.show()

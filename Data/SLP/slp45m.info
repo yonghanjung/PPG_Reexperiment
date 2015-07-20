@@ -1,0 +1,9 @@
+Source: record slpdb/slp45  Start: [00:15:00.000 31/08/1989]
+val has 1 row (signal) and 1000000 columns (samples/signal)
+Duration:  1:06:40
+Sampling frequency: 250 Hz  Sampling interval: 0.004 sec
+Row	Signal	Gain	Base	Units
+1	BP	11.0938	-811	mmHg
+
+To convert from raw units to the physical units shown
+above, subtract 'base' and divide by 'gain'.

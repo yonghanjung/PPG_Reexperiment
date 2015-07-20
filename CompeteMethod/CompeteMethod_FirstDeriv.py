@@ -13,6 +13,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from Module.data_call import data_call
 from Module.LowPassFilter import LowPassFilter
+import scipy.io
 ''' Function or Class '''
 
 
@@ -20,15 +21,15 @@ class FDPractice:
     def __init__(self, Array_PPGLong, Array_TimeLong):
         self.Array_PPGLong = Array_PPGLong
         self.Array_TimeLong = Array_TimeLong
-        self.Int_SeperateSize = 5 * 75
-        self.Int_TotalSet = 12
-        self.Int_InitSize = 2* 75
-        self.Int_SamplingRate = 75
+        self.Int_SeperateSize = 5 * 125
+        self.Int_TotalSet = 60 / 5
+        self.Int_InitSize = 2* 125
+        self.Int_SamplingRate = 125
         
     def Conduct_FD(self):
         Array_DivisionSet, Array_TimeDivisionSet = self.Seperate_Division()
         Int_DivNum = len(Array_DivisionSet)
-        Int_DivLength = 75*5
+        Int_DivLength = 125*5
         Dict_ZeroCrossIdx_ZeroCrossAmp = dict()
         List_AllMaxIdx = list()
 
@@ -60,7 +61,19 @@ class FDPractice:
             List_Anno = [int(x) for x in List_Anno]
             Array_Anno = np.array(List_Anno)
             Array_Anno = np.unique(Array_Anno)
+        elif Str_DataName == "PPG_Label":
+            Str_DataPathABP = "../Data/BeatDetection/ABP"
+            Str_DataPathICP = "../Data/BeatDetection/ICP"
+            Int_CutIdx = 125*60
+            MatFile_ICP = scipy.io.loadmat(Str_DataPathICP)
+            if Int_DataNum == 1:
+                Array_Anno = np.squeeze(np.array(MatFile_ICP['dDT1']))
+                Array_Anno = np.array([int(val) for val in Array_Anno if val < Int_CutIdx])
+            elif Int_DataNum == 2:
+                Array_Anno = np.squeeze(np.array(MatFile_ICP['dDT2']))
+                Array_Anno = np.array([int(val) for val in Array_Anno if val < Int_CutIdx])
         return Array_Anno
+
 
     def Check_Result(self, Str_DataName, Int_DataNum, List_PeakIdx):
         Array_MyAnswer = np.array(List_PeakIdx)
@@ -72,7 +85,7 @@ class FDPractice:
         Int_FP = 0
         Int_FN = 0
 
-        Int_BufferSize = 3
+        Int_BufferSize = 6
         for myanswer in Array_MyAnswer:
             Array_BufferMyAnswer = range(myanswer-Int_BufferSize, myanswer + Int_BufferSize)
             Array_BufferMyAnswer = np.array(Array_BufferMyAnswer)
@@ -135,11 +148,12 @@ class FDPractice:
 
 if __name__ == "__main__":
     # Str_DataName = "PPG_KW_long"
-    Str_DataName = "PPG_Walk"
-    Int_DataNum = 6
+    # Str_DataName = "PPG_Walk"
+    Str_DataName = "PPG_Label"
+    Int_DataNum = 2
     Int_StartSec = 0
     Int_EndSec = 60
-    Flt_SamplingRate = 75
+    Flt_SamplingRate = 125
 
     Array_PPG_Long = data_call(data_name=Str_DataName,data_num=Int_DataNum, wanted_length=0)
     Array_PPG_Long = np.array(Array_PPG_Long)
@@ -173,4 +187,4 @@ if __name__ == "__main__":
         # plt.plot(Array_Time[Array_Anno], Array_PPG[Array_Anno],'ro')
         # plt.plot(Dict_ZeroCross.keys(), Dict_ZeroCross.values(),'ro', label="Peak")
         # plt.legend()
-        plt.show()
+        # plt.show()

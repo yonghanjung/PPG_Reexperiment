@@ -261,7 +261,7 @@ class DrMPPGAnalysis:
     def AdaptiveThreshold(self, Array_Signal, Flt_AmpThreshold):
         ## Control Variable
         Flt_SlopeThreshold = -0.6
-        Flt_BackThreshold = 0.6 * self.FltSamplingRate
+        Flt_BackThreshold = 0.2 * self.FltSamplingRate
         #####################
 
         Object_AdaptiveThreshold = AdaptiveThreshold(Array_SignalinWindow=Array_Signal, Flt_SamplingRate=self.FltSamplingRate, Flt_AmpThreshold=Flt_AmpThreshold)

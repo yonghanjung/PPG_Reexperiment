@@ -22,7 +22,7 @@ class LCMMethod:
         self.Array_Signal = Array_Signal
         self.Array_Time = Array_Time
         self.Int_SignalLength = len(self.Array_Signal)
-        # Object_BandPassFilter = BandPassFilter(Array_Signal=self.Array_Signal, Flt_LowCut=0.5, Flt_HighCut=8.0, Flt_SamplingRate=75)
+        # Object_BandPassFilter = BandPassFilter(Array_Signal=self.Array_Signal, Flt_LowCut=0.5, Flt_HighCut=8.0, Flt_SamplingRate=125)
         # self.Array_Signal = Object_BandPassFilter.butter_bandpass_filter()
 
     def Load_Answer(self, Str_DataName, Int_DataNum):
@@ -43,7 +43,7 @@ class LCMMethod:
         elif Str_DataName == "PPG_Label":
             Str_DataPathABP = "../Data/BeatDetection/ABP"
             Str_DataPathICP = "../Data/BeatDetection/ICP"
-            Int_CutIdx = 125*60
+            Int_CutIdx = 125*300
             MatFile_ICP = scipy.io.loadmat(Str_DataPathICP)
             if Int_DataNum == 1:
                 Array_Anno = np.squeeze(np.array(MatFile_ICP['dDT1']))
@@ -63,7 +63,7 @@ class LCMMethod:
         Int_FP = 0
         Int_FN = 0
 
-        Int_BufferSize = 3
+        Int_BufferSize = 6
         for myanswer in Array_MyAnswer:
             Array_BufferMyAnswer = range(myanswer-Int_BufferSize, myanswer + Int_BufferSize)
             Array_BufferMyAnswer = np.array(Array_BufferMyAnswer)
@@ -129,7 +129,7 @@ if __name__ == "__main__":
     Int_DataNum = 1
     Int_SamplingRate = 125
     Flt_Delta = 1
-    Int_OneMinCut = 60*125
+    Int_OneMinCut = 300*125
 
     Array_PPG = data_call(data_name=Str_DataName, data_num=Int_DataNum,wanted_length=0)
     Array_Time = np.linspace(0,len(Array_PPG) /float(Int_SamplingRate),len(Array_PPG))
@@ -138,7 +138,7 @@ if __name__ == "__main__":
     Array_PPG = np.array(Array_PPG)
     Array_Time = np.array(Array_Time)
 
-    Object_BandPass = BandPassFilter(Array_Signal=Array_PPG,Flt_HighCut=8.0, Flt_LowCut=0.5, Flt_SamplingRate=75 )
+    Object_BandPass = BandPassFilter(Array_Signal=Array_PPG,Flt_HighCut=8.0, Flt_LowCut=0.5, Flt_SamplingRate=125 )
     # Array_PPG = Object_BandPass.butter_bandpass_filter()
 
     Objec_LCM = LCMMethod(Array_Signal=Array_PPG, Array_Time=Array_Time)
@@ -157,4 +157,4 @@ if __name__ == "__main__":
     plt.scatter(Array_Time[np.array(Array_PeakIdx)], Array_PPG[np.array(Array_PeakIdx)], marker='o', c='r',s = 80)
     # plt.plot(Array_Time[Array_Anno], Array_PPG[Array_Anno],'ro')
     # plt.legend()
-    plt.show()
+    # plt.show()
