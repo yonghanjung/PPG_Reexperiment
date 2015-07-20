@@ -51,7 +51,7 @@ class LCMMethod:
         Int_FP = 0
         Int_FN = 0
 
-        Int_BufferSize = 7
+        Int_BufferSize = 3
         for myanswer in Array_MyAnswer:
             Array_BufferMyAnswer = range(myanswer-Int_BufferSize, myanswer + Int_BufferSize)
             Array_BufferMyAnswer = np.array(Array_BufferMyAnswer)
@@ -111,9 +111,9 @@ class LCMMethod:
         return Dict_MaxTimeLoc_MaxAmp, Array_PeakIdx
 
 if __name__ == "__main__":
-    Str_DataName = "PPG_Walk"
-    # Str_DataName = 'PPG_KW_long'
-    Int_DataNum = 1
+    # Str_DataName = "PPG_Walk"
+    Str_DataName = 'PPG_KW_long'
+    Int_DataNum = 2
     Int_SamplingRate = 75
     Flt_Delta = 1
     Int_OneMinCut = 60*75
@@ -139,7 +139,7 @@ if __name__ == "__main__":
     plt.title("LCM / " + Str_DataName + str(Int_DataNum))
     plt.grid()
     plt.plot(Array_Time,Array_PPG, label="Raw PPG")
-    plt.plot(Array_Time[np.array(Array_PeakIdx)], Array_PPG[np.array(Array_PeakIdx)],'bo')
-    plt.plot(Array_Time[Array_Anno], Array_PPG[Array_Anno],'ro')
+    plt.plot(Array_Time[np.array(Array_PeakIdx)], Array_PPG[np.array(Array_PeakIdx)],'ro')
+    # plt.plot(Array_Time[Array_Anno], Array_PPG[Array_Anno],'ro')
     plt.legend()
     plt.show()

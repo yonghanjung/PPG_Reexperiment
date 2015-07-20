@@ -72,7 +72,7 @@ class DrMPPGAnalysis:
         Int_FP = 0
         Int_FN = 0
 
-        Int_BufferSize = 7
+        Int_BufferSize = 3
         for myanswer in Array_MyAnswer:
             Array_BufferMyAnswer = range(myanswer-Int_BufferSize, myanswer + Int_BufferSize)
             Array_BufferMyAnswer = np.array(Array_BufferMyAnswer)
@@ -316,15 +316,15 @@ class DrMPPGAnalysis:
 
 
 if __name__ == "__main__":
-    Str_DataName = "PPG_Walk"
-    # Str_DataName = "PPG_KW_long" ## SUPER CLEAN
+    # Str_DataName = "PPG_Walk"
+    Str_DataName = "PPG_KW_long" ## SUPER CLEAN
     List_DataNum = [1,2,3,4,5,6,7]
     List_MAData = [2,4,6]
     List_Clean = [1,3,5,7]
     List_KW = [0,1,2]
     List_WeakMA = [1,5,7]
 
-    Int_DataNum = 6
+    Int_DataNum = 2
     Int_Buffer = 19
     # 1 : Moderately Clean, little corrupted
     # 2 : MA Super corrupted
@@ -386,7 +386,7 @@ if __name__ == "__main__":
             Dict_PeakTimeLoc_PeakAmp, list_PeakIdx = Object_DrMPPG.Execution()
             # for val in list_PeakIdx:
             #     print val
-            print Object_DrMPPG.Check_Result(list_PeakIdx)
+            # print Object_DrMPPG.Check_Result(list_PeakIdx)
             # for idx, key in enumerate(sorted(Dict_PeakTimeLoc_PeakAmp)):
             #     print key, Dict_PeakTimeLoc_PeakAmp[key]
 
@@ -396,15 +396,15 @@ if __name__ == "__main__":
             # plt.plot(Array_Time, Array_PPG,'bo')
             # plt.plot(Dict_PeakTimeLoc_PeakAmp.keys(), Dict_PeakTimeLoc_PeakAmp.values(),'ro')
 
-            plt.figure()
-            plt.title("Peak Finding SigNum : "+ str(Int_DataNum))
-            plt.grid()
-            plt.plot(Array_PPG,'b')
-            plt.plot(list_PeakIdx, Array_PPG[list_PeakIdx],'ro')
+            # plt.figure()
+            # plt.title("Peak Finding SigNum : "+ str(Int_DataNum))
+            # plt.grid()
+            # plt.plot(Array_PPG,'b')
+            # plt.plot(list_PeakIdx, Array_PPG[list_PeakIdx],'ro')
 
 
             plt.figure()
-            plt.title("Peak Finding SigNum : "+ str(Int_DataNum))
+            plt.title("DrM / Peak Finding SigNum : "+ str(Int_DataNum))
             plt.grid()
             plt.plot(Array_Time, Array_PPG,'b', label="Raw PPG Signal")
             plt.plot(Dict_PeakTimeLoc_PeakAmp.keys(), Dict_PeakTimeLoc_PeakAmp.values(),'ro', label="Peak")

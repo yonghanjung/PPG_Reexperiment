@@ -57,7 +57,7 @@ class SSFMethod:
         Int_FP = 0
         Int_FN = 0
 
-        Int_BufferSize = 7
+        Int_BufferSize = 3
         for myanswer in Array_MyAnswer:
             Array_BufferMyAnswer = range(myanswer-Int_BufferSize, myanswer + Int_BufferSize)
             Array_BufferMyAnswer = np.array(Array_BufferMyAnswer)
@@ -120,9 +120,9 @@ class SSFMethod:
 
 
 if __name__ == "__main__":
-    # Str_DataName = "PPG_KW_long"
-    Str_DataName = "PPG_Walk"
-    Int_DataNum = 7
+    Str_DataName = "PPG_KW_long"
+    # Str_DataName = "PPG_Walk"
+    Int_DataNum = 2
     Flt_SamplingRate = 75
     Flt_highCut = 11
     Flt_LowCut = 0.5

@@ -72,7 +72,7 @@ class FDPractice:
         Int_FP = 0
         Int_FN = 0
 
-        Int_BufferSize = 7
+        Int_BufferSize = 3
         for myanswer in Array_MyAnswer:
             Array_BufferMyAnswer = range(myanswer-Int_BufferSize, myanswer + Int_BufferSize)
             Array_BufferMyAnswer = np.array(Array_BufferMyAnswer)
@@ -134,9 +134,9 @@ class FDPractice:
 
 
 if __name__ == "__main__":
-    # Str_DataName = "PPG_KW_long"
-    Str_DataName = "PPG_Walk"
-    Int_DataNum = 1
+    Str_DataName = "PPG_KW_long"
+    # Str_DataName = "PPG_Walk"
+    Int_DataNum = 2
     Int_StartSec = 0
     Int_EndSec = 60
     Flt_SamplingRate = 75
@@ -169,7 +169,7 @@ if __name__ == "__main__":
         plt.title("FD / " + Str_DataName + str(Int_DataNum))
         plt.grid()
         plt.plot(Array_Time, Array_PPG, label="Raw PPG")
-        plt.plot(Array_Time[np.array(List_MaxIdx)], Array_PPG[np.array(List_MaxIdx)], 'bo')
+        plt.plot(Array_Time[np.array(List_MaxIdx)], Array_PPG[np.array(List_MaxIdx)], 'ro')
         # plt.plot(Array_Time[Array_Anno], Array_PPG[Array_Anno],'ro')
         # plt.plot(Dict_ZeroCross.keys(), Dict_ZeroCross.values(),'ro', label="Peak")
         plt.legend()
