@@ -73,7 +73,18 @@ def data_call(data_name, data_num, wanted_length):
             mydata = mydata[:wanted_length]
         return mydata
 
-    # if data_name == "PPG_MIMIC":
+    if data_name == "PPG_Label":
+        Str_DataPathABP = "../Data/BeatDetection/ABP"
+        Str_DataPathICP = "../Data/BeatDetection/ICP"
+        # MatFile_ABP = scipy.io.loadmat(Str_DataPathABP)
+        MatFile_ICP = scipy.io.loadmat(Str_DataPathICP)
+
+        if data_num == 1 :
+            Array_PPG1 = np.squeeze(np.asarray(MatFile_ICP['icp1']))
+            return Array_PPG1
+        elif data_num == 2:
+            Array_PPG2 = np.squeeze(np.asarray(MatFile_ICP['icp2']))
+            return Array_PPG2
 
 
     if data_name == "ECG_HE":

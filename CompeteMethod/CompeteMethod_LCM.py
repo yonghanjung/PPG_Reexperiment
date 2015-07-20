@@ -13,6 +13,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from Module.data_call import data_call
 from Module.bandpass import BandPassFilter
+import scipy.io
 ''' Function or Class '''
 
 
@@ -39,6 +40,17 @@ class LCMMethod:
             List_Anno = [int(x) for x in List_Anno]
             Array_Anno = np.array(List_Anno)
             Array_Anno = np.unique(Array_Anno)
+        elif Str_DataName == "PPG_Label":
+            Str_DataPathABP = "../Data/BeatDetection/ABP"
+            Str_DataPathICP = "../Data/BeatDetection/ICP"
+            Int_CutIdx = 125*60
+            MatFile_ICP = scipy.io.loadmat(Str_DataPathICP)
+            if Int_DataNum == 1:
+                Array_Anno = np.squeeze(np.array(MatFile_ICP['dDT1']))
+                Array_Anno = np.array([int(val) for val in Array_Anno if val < Int_CutIdx])
+            elif Int_DataNum == 2:
+                Array_Anno = np.squeeze(np.array(MatFile_ICP['dDT2']))
+                Array_Anno = np.array([int(val) for val in Array_Anno if val < Int_CutIdx])
         return Array_Anno
 
     def Check_Result(self, Str_DataName, Int_DataNum, List_PeakIdx):
@@ -112,11 +124,12 @@ class LCMMethod:
 
 if __name__ == "__main__":
     # Str_DataName = "PPG_Walk"
-    Str_DataName = 'PPG_KW_long'
-    Int_DataNum = 2
-    Int_SamplingRate = 75
+    # Str_DataName = 'PPG_KW_long'
+    Str_DataName = "PPG_Label"
+    Int_DataNum = 1
+    Int_SamplingRate = 125
     Flt_Delta = 1
-    Int_OneMinCut = 60*75
+    Int_OneMinCut = 60*125
 
     Array_PPG = data_call(data_name=Str_DataName, data_num=Int_DataNum,wanted_length=0)
     Array_Time = np.linspace(0,len(Array_PPG) /float(Int_SamplingRate),len(Array_PPG))
@@ -139,7 +152,9 @@ if __name__ == "__main__":
     plt.title("LCM / " + Str_DataName + str(Int_DataNum))
     plt.grid()
     plt.plot(Array_Time,Array_PPG, label="Raw PPG")
-    plt.plot(Array_Time[np.array(Array_PeakIdx)], Array_PPG[np.array(Array_PeakIdx)],'ro')
+    # A = Array_Time[np.array(Array_PeakIdx)]
+    # B = Array_PPG[np.array(Array_PeakIdx)]
+    plt.scatter(Array_Time[np.array(Array_PeakIdx)], Array_PPG[np.array(Array_PeakIdx)], marker='o', c='r',s = 80)
     # plt.plot(Array_Time[Array_Anno], Array_PPG[Array_Anno],'ro')
-    plt.legend()
+    # plt.legend()
     plt.show()

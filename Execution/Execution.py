@@ -10,6 +10,7 @@ Comment
 
 ''' Library '''
 import numpy as np
+import scipy.io
 from Module.data_call import data_call
 from Module.bandpass import BandPassFilter
 from Module.AdaptiveThreshold import AdaptiveThreshold
@@ -24,7 +25,7 @@ import matplotlib.pyplot as plt
 
 class DrMPPGAnalysis:
     def __init__(self, Str_DataName, Int_DataNum,Int_Buffer ):
-        self.FltSamplingRate = 75.0
+        self.FltSamplingRate = 125.0
         self.Str_DataName = Str_DataName
         self.Int_DataNum = Int_DataNum
         self.Int_Buffer = Int_Buffer
@@ -35,7 +36,8 @@ class DrMPPGAnalysis:
         Int_Start = 40
         Int_End = 43
         Int_CutTime = 60
-        self.Array_PPG_Long = self.Array_PPG_Long[: int(self.FltSamplingRate) * Int_CutTime]
+        self.Int_CutIdx = int(Int_CutTime * self.FltSamplingRate)
+        self.Array_PPG_Long = self.Array_PPG_Long[: self.Int_CutIdx ]
         # self.Array_PPG_Long = self.BandPassFilter(Array_Signal=self.Array_PPG_Long)
         self.Array_TimeDomain_Long = self.Array_TimeDomain_Long[:int(self.FltSamplingRate) * Int_CutTime]
         self.Array_PPG = self.Array_PPG_Long[ Int_Start *int(self.FltSamplingRate)   :Int_End * int(self.FltSamplingRate)]
@@ -58,6 +60,17 @@ class DrMPPGAnalysis:
             List_Anno = [int(x) for x in List_Anno]
             Array_Anno = np.array(List_Anno)
             Array_Anno = np.unique(Array_Anno)
+        elif self.Str_DataName == "PPG_Label":
+            Str_DataPathABP = "../Data/BeatDetection/ABP"
+            Str_DataPathICP = "../Data/BeatDetection/ICP"
+            MatFile_ICP = scipy.io.loadmat(Str_DataPathICP)
+            if self.Int_DataNum == 1:
+                Array_Anno = np.squeeze(np.array(MatFile_ICP['dDT1']))
+                Array_Anno = np.array([int(val) for val in Array_Anno if val < self.Int_CutIdx])
+            elif self.Int_DataNum == 2:
+                Array_Anno = np.squeeze(np.array(MatFile_ICP['dDT2']))
+                Array_Anno = np.array([int(val) for val in Array_Anno if val < self.Int_CutIdx])
+
         return Array_Anno
 
     def Check_Result(self, List_PeakIdx):
@@ -72,7 +85,7 @@ class DrMPPGAnalysis:
         Int_FP = 0
         Int_FN = 0
 
-        Int_BufferSize = 3
+        Int_BufferSize = 6
         for myanswer in Array_MyAnswer:
             Array_BufferMyAnswer = range(myanswer-Int_BufferSize, myanswer + Int_BufferSize)
             Array_BufferMyAnswer = np.array(Array_BufferMyAnswer)
@@ -316,8 +329,8 @@ class DrMPPGAnalysis:
 
 
 if __name__ == "__main__":
-    # Str_DataName = "PPG_Walk"
-    Str_DataName = "PPG_KW_long" ## SUPER CLEAN
+    Str_DataName = "PPG_Label"
+    # Str_DataName = "PPG_KW_long" ## SUPER CLEAN
     List_DataNum = [1,2,3,4,5,6,7]
     List_MAData = [2,4,6]
     List_Clean = [1,3,5,7]
@@ -386,7 +399,7 @@ if __name__ == "__main__":
             Dict_PeakTimeLoc_PeakAmp, list_PeakIdx = Object_DrMPPG.Execution()
             # for val in list_PeakIdx:
             #     print val
-            # print Object_DrMPPG.Check_Result(list_PeakIdx)
+            print Object_DrMPPG.Check_Result(list_PeakIdx)
             # for idx, key in enumerate(sorted(Dict_PeakTimeLoc_PeakAmp)):
             #     print key, Dict_PeakTimeLoc_PeakAmp[key]
 
@@ -407,8 +420,8 @@ if __name__ == "__main__":
             plt.title("DrM / Peak Finding SigNum : "+ str(Int_DataNum))
             plt.grid()
             plt.plot(Array_Time, Array_PPG,'b', label="Raw PPG Signal")
-            plt.plot(Dict_PeakTimeLoc_PeakAmp.keys(), Dict_PeakTimeLoc_PeakAmp.values(),'ro', label="Peak")
-            plt.legend()
+            plt.scatter(Dict_PeakTimeLoc_PeakAmp.keys(), Dict_PeakTimeLoc_PeakAmp.values(), marker= 'o',c = 'r', s = 80,  label="Peak")
+            # plt.legend()
             plt.show()
 
         elif Mode == "Annotation Check":

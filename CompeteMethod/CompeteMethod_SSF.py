@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 from Module.data_call import data_call
 from Module.SlopeSumFunction import SlopeSumFunction
 from Module.bandpass import BandPassFilter
+import scipy.io
 
 ''' Function or Class '''
 
@@ -23,7 +24,7 @@ class SSFMethod:
         self.Array_Time = Array_Time
         self.Int_SSFLength = 10
         self.Int_SignalLength = len(Array_Signal)
-        self.Int_SamplingRate = 75
+        self.Int_SamplingRate = 125
         # self.Flt_InitThreshold =0.1* np.max(self.Array_Signal[:3 * self.Int_SamplingRate])
 
         Object_SlopeSum = SlopeSumFunction(self.Array_Signal,self.Int_SSFLength)
@@ -45,6 +46,17 @@ class SSFMethod:
             List_Anno = [int(x) for x in List_Anno]
             Array_Anno = np.array(List_Anno)
             Array_Anno = np.unique(Array_Anno)
+        elif Str_DataName == "PPG_Label":
+            Str_DataPathABP = "../Data/BeatDetection/ABP"
+            Str_DataPathICP = "../Data/BeatDetection/ICP"
+            Int_CutIdx = 125*60
+            MatFile_ICP = scipy.io.loadmat(Str_DataPathICP)
+            if Int_DataNum == 1:
+                Array_Anno = np.squeeze(np.array(MatFile_ICP['dDT1']))
+                Array_Anno = np.array([int(val) for val in Array_Anno if val < Int_CutIdx])
+            elif Int_DataNum == 2:
+                Array_Anno = np.squeeze(np.array(MatFile_ICP['dDT2']))
+                Array_Anno = np.array([int(val) for val in Array_Anno if val < Int_CutIdx])
         return Array_Anno
 
     def Check_Result(self, Str_DataName, Int_DataNum, List_PeakIdx):
@@ -57,7 +69,7 @@ class SSFMethod:
         Int_FP = 0
         Int_FN = 0
 
-        Int_BufferSize = 3
+        Int_BufferSize = 6
         for myanswer in Array_MyAnswer:
             Array_BufferMyAnswer = range(myanswer-Int_BufferSize, myanswer + Int_BufferSize)
             Array_BufferMyAnswer = np.array(Array_BufferMyAnswer)
@@ -120,13 +132,14 @@ class SSFMethod:
 
 
 if __name__ == "__main__":
-    Str_DataName = "PPG_KW_long"
-    # Str_DataName = "PPG_Walk"
+    # Str_DataName = "PPG_KW_long"
+    Str_DataName = "PPG_Walk"
+    Str_DataName = "PPG_Label"
     Int_DataNum = 2
-    Flt_SamplingRate = 75
+    Flt_SamplingRate = 125
     Flt_highCut = 11
     Flt_LowCut = 0.5
-    Int_OneMinCut = 60*75
+    Int_OneMinCut = 60*125
 
     PLOT = True
 
@@ -149,8 +162,8 @@ if __name__ == "__main__":
         plt.title("SSF / " + Str_DataName + str(Int_DataNum))
         plt.grid()
         plt.plot(Array_Time, Array_PPG,'b',label = "Raw PPG")
-        plt.plot(Array_Time, Array_Threshold,'g--', label="Threshold")
+        # plt.plot(Array_Time, Array_Threshold,'g--', label="Threshold")
         # plt.plot(Dict_PeakIdxLoc_PeakAmp.keys(), Dict_PeakIdxLoc_PeakAmp.values(),'ro', label="PEAK")
-        plt.plot(Array_Time[List_MaxIdx], Array_PPG[List_MaxIdx],'ro')
-        plt.legend()
+        plt.scatter(Array_Time[List_MaxIdx], Array_PPG[List_MaxIdx], marker='o',c='r', s=80 )
+        # plt.legend()
         plt.show()
