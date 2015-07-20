@@ -35,7 +35,7 @@ class DrMPPGAnalysis:
         ## CONTROL VARIABLE ##
         Int_Start = 40
         Int_End = 43
-        Int_CutTime = 60
+        Int_CutTime = 3600
         self.Int_CutIdx = int(Int_CutTime * self.FltSamplingRate)
         self.Array_PPG_Long = self.Array_PPG_Long[: self.Int_CutIdx ]
         # self.Array_PPG_Long = self.BandPassFilter(Array_Signal=self.Array_PPG_Long)
@@ -64,11 +64,12 @@ class DrMPPGAnalysis:
             Str_DataPathABP = "../Data/BeatDetection/ABP"
             Str_DataPathICP = "../Data/BeatDetection/ICP"
             MatFile_ICP = scipy.io.loadmat(Str_DataPathICP)
+            MatFile_ABP = scipy.io.loadmat(Str_DataPathABP)
             if self.Int_DataNum == 1:
-                Array_Anno = np.squeeze(np.array(MatFile_ICP['dDT1']))
+                Array_Anno = np.squeeze(np.array(MatFile_ABP['dDT1']))
                 Array_Anno = np.array([int(val) for val in Array_Anno if val < self.Int_CutIdx])
             elif self.Int_DataNum == 2:
-                Array_Anno = np.squeeze(np.array(MatFile_ICP['dDT2']))
+                Array_Anno = np.squeeze(np.array(MatFile_ABP['dDT2']))
                 Array_Anno = np.array([int(val) for val in Array_Anno if val < self.Int_CutIdx])
 
         return Array_Anno
@@ -85,7 +86,7 @@ class DrMPPGAnalysis:
         Int_FP = 0
         Int_FN = 0
 
-        Int_BufferSize = 6
+        Int_BufferSize = 2
         for myanswer in Array_MyAnswer:
             Array_BufferMyAnswer = range(myanswer-Int_BufferSize, myanswer + Int_BufferSize)
             Array_BufferMyAnswer = np.array(Array_BufferMyAnswer)
@@ -171,7 +172,7 @@ class DrMPPGAnalysis:
         Int_3secSignalLength = int(self.FltSamplingRate * 3)
         Int_IdxTarget = (Int_3secSignalLength / 2) + 1
         Int_LMSFilterLength = 10
-        Int_SSFBufferLength = 10
+        Int_SSFBufferLength = 16
         Int_BufferPeakFinding = 10
         list_PeakIdx = list()
         Int_IdxBuffer= self.Int_Buffer
@@ -331,14 +332,15 @@ class DrMPPGAnalysis:
 if __name__ == "__main__":
     Str_DataName = "PPG_Label"
     # Str_DataName = "PPG_KW_long" ## SUPER CLEAN
+    # Str_DataName = "PPG_Walk"
     List_DataNum = [1,2,3,4,5,6,7]
     List_MAData = [2,4,6]
     List_Clean = [1,3,5,7]
     List_KW = [0,1,2]
     List_WeakMA = [1,5,7]
 
-    Int_DataNum = 2
-    Int_Buffer = 19
+    Int_DataNum = 1
+    Int_Buffer = 12
     # 1 : Moderately Clean, little corrupted
     # 2 : MA Super corrupted
     # 3 : Super Clean
@@ -422,7 +424,7 @@ if __name__ == "__main__":
             plt.plot(Array_Time, Array_PPG,'b', label="Raw PPG Signal")
             plt.scatter(Dict_PeakTimeLoc_PeakAmp.keys(), Dict_PeakTimeLoc_PeakAmp.values(), marker= 'o',c = 'r', s = 80,  label="Peak")
             # plt.legend()
-            plt.show()
+            # plt.show()
 
         elif Mode == "Annotation Check":
             plt.figure()

@@ -43,13 +43,13 @@ class LCMMethod:
         elif Str_DataName == "PPG_Label":
             Str_DataPathABP = "../Data/BeatDetection/ABP"
             Str_DataPathICP = "../Data/BeatDetection/ICP"
-            Int_CutIdx = 125*300
-            MatFile_ICP = scipy.io.loadmat(Str_DataPathICP)
+            MatFile_ABP = scipy.io.loadmat(Str_DataPathABP)
+            Int_CutIdx = 125*600
             if Int_DataNum == 1:
-                Array_Anno = np.squeeze(np.array(MatFile_ICP['dDT1']))
+                Array_Anno = np.squeeze(np.array(MatFile_ABP['dDT1']))
                 Array_Anno = np.array([int(val) for val in Array_Anno if val < Int_CutIdx])
             elif Int_DataNum == 2:
-                Array_Anno = np.squeeze(np.array(MatFile_ICP['dDT2']))
+                Array_Anno = np.squeeze(np.array(MatFile_ABP['dDT2']))
                 Array_Anno = np.array([int(val) for val in Array_Anno if val < Int_CutIdx])
         return Array_Anno
 
@@ -63,7 +63,7 @@ class LCMMethod:
         Int_FP = 0
         Int_FN = 0
 
-        Int_BufferSize = 6
+        Int_BufferSize = 2
         for myanswer in Array_MyAnswer:
             Array_BufferMyAnswer = range(myanswer-Int_BufferSize, myanswer + Int_BufferSize)
             Array_BufferMyAnswer = np.array(Array_BufferMyAnswer)
@@ -123,13 +123,13 @@ class LCMMethod:
         return Dict_MaxTimeLoc_MaxAmp, Array_PeakIdx
 
 if __name__ == "__main__":
-    # Str_DataName = "PPG_Walk"
+    Str_DataName = "PPG_Walk"
     # Str_DataName = 'PPG_KW_long'
-    Str_DataName = "PPG_Label"
-    Int_DataNum = 1
-    Int_SamplingRate = 125
+    # Str_DataName = "PPG_Label"
+    Int_DataNum = 2
+    Int_SamplingRate = 75
     Flt_Delta = 1
-    Int_OneMinCut = 300*125
+    Int_OneMinCut = 60*75
 
     Array_PPG = data_call(data_name=Str_DataName, data_num=Int_DataNum,wanted_length=0)
     Array_Time = np.linspace(0,len(Array_PPG) /float(Int_SamplingRate),len(Array_PPG))
@@ -138,7 +138,7 @@ if __name__ == "__main__":
     Array_PPG = np.array(Array_PPG)
     Array_Time = np.array(Array_Time)
 
-    Object_BandPass = BandPassFilter(Array_Signal=Array_PPG,Flt_HighCut=8.0, Flt_LowCut=0.5, Flt_SamplingRate=125 )
+    Object_BandPass = BandPassFilter(Array_Signal=Array_PPG,Flt_HighCut=8.0, Flt_LowCut=0.5, Flt_SamplingRate=75 )
     # Array_PPG = Object_BandPass.butter_bandpass_filter()
 
     Objec_LCM = LCMMethod(Array_Signal=Array_PPG, Array_Time=Array_Time)

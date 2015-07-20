@@ -22,7 +22,7 @@ class SSFMethod:
     def __init__(self, Array_Signal, Array_Time):
         self.Array_Signal = Array_Signal
         self.Array_Time = Array_Time
-        self.Int_SSFLength = 10
+        self.Int_SSFLength = 16
         self.Int_SignalLength = len(Array_Signal)
         self.Int_SamplingRate = 125
         # self.Flt_InitThreshold =0.1* np.max(self.Array_Signal[:3 * self.Int_SamplingRate])
@@ -49,13 +49,13 @@ class SSFMethod:
         elif Str_DataName == "PPG_Label":
             Str_DataPathABP = "../Data/BeatDetection/ABP"
             Str_DataPathICP = "../Data/BeatDetection/ICP"
-            Int_CutIdx = 125*60
-            MatFile_ICP = scipy.io.loadmat(Str_DataPathICP)
+            MatFile_ABP = scipy.io.loadmat(Str_DataPathABP)
+            Int_CutIdx = 125*3600
             if Int_DataNum == 1:
-                Array_Anno = np.squeeze(np.array(MatFile_ICP['dDT1']))
+                Array_Anno = np.squeeze(np.array(MatFile_ABP['dDT1']))
                 Array_Anno = np.array([int(val) for val in Array_Anno if val < Int_CutIdx])
             elif Int_DataNum == 2:
-                Array_Anno = np.squeeze(np.array(MatFile_ICP['dDT2']))
+                Array_Anno = np.squeeze(np.array(MatFile_ABP['dDT2']))
                 Array_Anno = np.array([int(val) for val in Array_Anno if val < Int_CutIdx])
         return Array_Anno
 
@@ -69,7 +69,7 @@ class SSFMethod:
         Int_FP = 0
         Int_FN = 0
 
-        Int_BufferSize = 6
+        Int_BufferSize = 2
         for myanswer in Array_MyAnswer:
             Array_BufferMyAnswer = range(myanswer-Int_BufferSize, myanswer + Int_BufferSize)
             Array_BufferMyAnswer = np.array(Array_BufferMyAnswer)
@@ -135,13 +135,14 @@ if __name__ == "__main__":
     # Str_DataName = "PPG_KW_long"
     # Str_DataName = "PPG_Walk"
     Str_DataName = "PPG_Label"
-    Int_DataNum = 2
+    Int_DataNum = 1
     Flt_SamplingRate = 125
     Flt_highCut = 11
     Flt_LowCut = 0.5
-    Int_OneMinCut = 60*125
+    Int_OneMinCut = 3600*Flt_SamplingRate
 
     PLOT = False
+    # PLOT = True
 
     Array_PPG_Long = data_call(data_name=Str_DataName,data_num=Int_DataNum, wanted_length=0)
     Array_PPG_Long = np.array(Array_PPG_Long)
@@ -166,4 +167,4 @@ if __name__ == "__main__":
         # plt.plot(Dict_PeakIdxLoc_PeakAmp.keys(), Dict_PeakIdxLoc_PeakAmp.values(),'ro', label="PEAK")
         plt.scatter(Array_Time[List_MaxIdx], Array_PPG[List_MaxIdx], marker='o',c='r', s=80 )
         # plt.legend()
-        # plt.show()
+        plt.show()
