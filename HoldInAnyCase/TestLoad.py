@@ -1,6 +1,7 @@
 import scipy.io
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib
 from Module.data_call import data_call
 
 # StrDataName = "../Data/SLP/slp01am"
@@ -13,14 +14,22 @@ from Module.data_call import data_call
 # plt.plot(687, MatFile_Data[687],'ro')
 # plt.show()
 #
-Str_DataName = "PPG_Walk"
-Int_DataNum = 5
+
+# Str_DataName = "PPG_Walk"
+Str_DataName = "PPG_KW_long"
+Int_DataNum = 0
 Int_SampRate = 75
 
 Array_PPGData = data_call(data_name=Str_DataName, data_num=Int_DataNum, wanted_length=0)
-print len(Array_PPGData) / Int_SampRate
+Array_Time = np.linspace(0, len(Array_PPGData)/Int_SampRate, len(Array_PPGData))
+# print len(Array_PPGData) / Int_SampRate
 
-plt.plot(Array_PPGData)
+
+
+matplotlib.rcParams.update({'font.size': 23})
+plt.plot(Array_Time, Array_PPGData)
+plt.xlabel("Time (sec)", fontsize = 30)
+plt.ylabel("Voltage", fontsize=30)
 plt.show()
 
 

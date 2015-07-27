@@ -44,7 +44,7 @@ class LCMMethod:
             Str_DataPathABP = "../Data/BeatDetection/ABP"
             Str_DataPathICP = "../Data/BeatDetection/ICP"
             MatFile_ABP = scipy.io.loadmat(Str_DataPathABP)
-            Int_CutIdx = 125*600
+            Int_CutIdx = 125*3600
             if Int_DataNum == 1:
                 Array_Anno = np.squeeze(np.array(MatFile_ABP['dDT1']))
                 Array_Anno = np.array([int(val) for val in Array_Anno if val < Int_CutIdx])
@@ -123,13 +123,13 @@ class LCMMethod:
         return Dict_MaxTimeLoc_MaxAmp, Array_PeakIdx
 
 if __name__ == "__main__":
-    Str_DataName = "PPG_Walk"
+    # Str_DataName = "PPG_Walk"
     # Str_DataName = 'PPG_KW_long'
-    # Str_DataName = "PPG_Label"
+    Str_DataName = "PPG_Label"
     Int_DataNum = 2
-    Int_SamplingRate = 75
+    Int_SamplingRate = 125
     Flt_Delta = 1
-    Int_OneMinCut = 60*75
+    Int_OneMinCut = 3600*Int_SamplingRate
 
     Array_PPG = data_call(data_name=Str_DataName, data_num=Int_DataNum,wanted_length=0)
     Array_Time = np.linspace(0,len(Array_PPG) /float(Int_SamplingRate),len(Array_PPG))

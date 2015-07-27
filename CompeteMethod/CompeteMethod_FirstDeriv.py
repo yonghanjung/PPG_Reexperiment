@@ -21,10 +21,10 @@ class FDPractice:
     def __init__(self, Array_PPGLong, Array_TimeLong):
         self.Array_PPGLong = Array_PPGLong
         self.Array_TimeLong = Array_TimeLong
-        self.Int_SeperateSize = 5 * 75
-        self.Int_TotalSet = 60 / 5
-        self.Int_InitSize = 2* 75
-        self.Int_SamplingRate = 75
+        self.Int_SeperateSize = 5 * 125
+        self.Int_TotalSet = 3600 / 5
+        self.Int_InitSize = 2* 125
+        self.Int_SamplingRate = 125
         
     def Conduct_FD(self):
         Array_DivisionSet, Array_TimeDivisionSet = self.Seperate_Division()
@@ -65,7 +65,7 @@ class FDPractice:
             Str_DataPathABP = "../Data/BeatDetection/ABP"
             Str_DataPathICP = "../Data/BeatDetection/ICP"
             MatFile_ABP = scipy.io.loadmat(Str_DataPathABP)
-            Int_CutIdx = 125*600
+            Int_CutIdx = 125*3600
             if Int_DataNum == 1:
                 Array_Anno = np.squeeze(np.array(MatFile_ABP['dDT1']))
                 Array_Anno = np.array([int(val) for val in Array_Anno if val < Int_CutIdx])
@@ -148,12 +148,12 @@ class FDPractice:
 
 if __name__ == "__main__":
     # Str_DataName = "PPG_KW_long"
-    Str_DataName = "PPG_Walk"
-    # Str_DataName = "PPG_Label"
-    Int_DataNum = 6
+    # Str_DataName = "PPG_Walk"
+    Str_DataName = "PPG_Label"
+    Int_DataNum = 2
     Int_StartSec = 0
-    Int_EndSec = 60
-    Flt_SamplingRate = 75
+    Int_EndSec = 3600
+    Flt_SamplingRate = 125
 
     Array_PPG_Long = data_call(data_name=Str_DataName,data_num=Int_DataNum, wanted_length=0)
     Array_PPG_Long = np.array(Array_PPG_Long)

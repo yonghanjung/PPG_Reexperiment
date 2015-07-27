@@ -135,7 +135,7 @@ if __name__ == "__main__":
     # Str_DataName = "PPG_KW_long"
     # Str_DataName = "PPG_Walk"
     Str_DataName = "PPG_Label"
-    Int_DataNum = 1
+    Int_DataNum = 2
     Flt_SamplingRate = 125
     Flt_highCut = 11
     Flt_LowCut = 0.5

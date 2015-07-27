@@ -35,10 +35,10 @@ class DrMPPGAnalysis:
         ## CONTROL VARIABLE ##
         Int_Start = 40
         Int_End = 43
-        Int_CutTime = 3600
+        Int_CutTime = 60
         self.Int_CutIdx = int(Int_CutTime * self.FltSamplingRate)
         self.Array_PPG_Long = self.Array_PPG_Long[: self.Int_CutIdx ]
-        # self.Array_PPG_Long = self.BandPassFilter(Array_Signal=self.Array_PPG_Long)
+        self.Array_PPG_Long = self.BandPassFilter(Array_Signal=self.Array_PPG_Long)
         self.Array_TimeDomain_Long = self.Array_TimeDomain_Long[:int(self.FltSamplingRate) * Int_CutTime]
         self.Array_PPG = self.Array_PPG_Long[ Int_Start *int(self.FltSamplingRate)   :Int_End * int(self.FltSamplingRate)]
         self.Array_TimeDomain = self.Array_TimeDomain_Long[Int_Start *int(self.FltSamplingRate)   :Int_End * int(self.FltSamplingRate)]
